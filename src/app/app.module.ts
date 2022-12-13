@@ -12,6 +12,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import { HomeComponent } from './home/home.component';
+import {MatDividerModule} from "@angular/material/divider";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { HomeComponent } from './home/home.component';
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatDividerModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
