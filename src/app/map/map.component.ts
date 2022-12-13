@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDrawer} from "@angular/material/sidenav";
+import {SideNavService} from "../@core/side-nav/side-nav.service";
 
 @Component({
   selector: 'app-map',
@@ -7,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapComponent implements OnInit{
   name:String = "Map";
+
+  constructor(public sideNavService: SideNavService) {
+  }
+
   ngOnInit(): void {
     var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
@@ -17,7 +23,7 @@ export class MapComponent implements OnInit{
         innerWidth: 1500,
     });
   }
-  
+
 }
 
 
