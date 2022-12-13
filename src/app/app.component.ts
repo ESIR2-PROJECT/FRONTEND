@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Borne} from "./objects/borne";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FRONTEND';
+
+  print(borne :Borne){
+    console.log(borne);
+  }
 }
