@@ -1,0 +1,19 @@
+.sidenav {
+  width: 35em;
+}
+
+.borne-info p {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.borne-info .location{
+  color: darkgrey;
+  font-size: small;
+  margin-bottom: 0.5em;
+}
+
+.borne-info .title {
+  margin-left: 2px;
+}
