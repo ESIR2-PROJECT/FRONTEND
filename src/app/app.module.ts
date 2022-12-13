@@ -10,6 +10,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import { SideDescriptionComponent } from './side-description/side-description.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import {MatButtonModule} from "@angular/material/button";
     MapComponent,
     NavComponent,
     SideDescriptionComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import {MatButtonModule} from "@angular/material/button";
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
