@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatDrawer} from "@angular/material/sidenav";
+import {AfterViewInit, Component} from '@angular/core';
 import {SideNavService} from "../@core/side-nav/side-nav.service";
 
 @Component({
@@ -13,14 +12,7 @@ export class MapComponent implements AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGhvbWVnYSIsImEiOiJjbGJjZmVtcGgwM3FlM29xdTdqdTNzcGVoIn0.5H6TAGMFFAu-9maHaoW-BA';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        innerWidth: 1500,
-    });
   }
 
 }

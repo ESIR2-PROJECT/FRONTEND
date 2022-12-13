@@ -14,6 +14,7 @@ import {MatCardModule} from "@angular/material/card";
 import { HomeComponent } from './home/home.component';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
+import {NgxMapboxGLModule} from "ngx-mapbox-gl";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,10 @@ import {MatIconModule} from "@angular/material/icon";
     MatButtonModule,
     MatCardModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    NgxMapboxGLModule.withConfig({
+      accessToken: 'pk.eyJ1IjoidGhvbWVnYSIsImEiOiJjbGJjZmVtcGgwM3FlM29xdTdqdTNzcGVoIn0.5H6TAGMFFAu-9maHaoW-BA',
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
