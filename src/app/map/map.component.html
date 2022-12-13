@@ -1,1 +1,11 @@
-<div id="map"></div>
+<mgl-map
+  [style]="name"
+  [zoom]="[5]"
+  [center]="[-1.6833, 48.1033]"
+>
+  <div *ngFor="let point of borne">
+  <mgl-marker [lngLat]="[point.coordonnees.longitude,point.coordonnees.latitude]" >
+    <div class="marker" (click)="giveInfo(point)"></div>
+  </mgl-marker>
+  </div>
+</mgl-map>

@@ -23,7 +23,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "mapbox-gl/dist/mapbox-gl.css"
+
             ],
             "scripts": []
           },

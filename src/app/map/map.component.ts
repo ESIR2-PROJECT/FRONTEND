@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {DataService} from "../services/data.service";
+import {Borne, Coordonnees} from "../objects/borne";
 
 @Component({
   selector: 'app-map',
@@ -6,18 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit{
-  name:String = "Map";
+  @Output() showInfo =new EventEmitter<Borne>();
+
+  name:string = "mapbox://styles/mapbox/streets-v11";
+  borne:Borne[]=[];
+
+  constructor(private dataservice : DataService) { }
   ngOnInit(): void {
     var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGhvbWVnYSIsImEiOiJjbGJjZmVtcGgwM3FlM29xdTdqdTNzcGVoIn0.5H6TAGMFFAu-9maHaoW-BA';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        innerWidth: 1500,
-    });
+    this.borne=this.dataservice.getAllBornes();
   }
-  
+  giveInfo(borne:Borne){
+    this.showInfo.emit(borne);
+  }
+
 }
 
 
