@@ -1,7 +1,7 @@
 <mat-drawer #drawer class="sidenav" mode="side">
   <div class="d-flex m-2">
     <hr class="mt-4 w-100"/>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="drawer.close()">
       <mat-icon color="primary">cancel_outline</mat-icon>
     </button>
   </div>
