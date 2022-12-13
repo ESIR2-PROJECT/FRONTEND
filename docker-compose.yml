@@ -1,0 +1,10 @@
+version: '3'
+services:
+  front:
+    build:
+      context: .
+      target: dev
+    ports:
+      - 4200:4200
+    volumes:
+      - ./:/appdev
