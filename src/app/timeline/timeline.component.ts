@@ -20,7 +20,7 @@ export class TimelineComponent implements OnInit {
   date: string = ""
 
   ngOnInit(): void {
-
+    this.date = (new Date()).toISOString().split('T')[0]
   }
 
   change() {
