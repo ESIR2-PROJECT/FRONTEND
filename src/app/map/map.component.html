@@ -9,5 +9,5 @@
     </mgl-marker>
   </div>
 </mgl-map>
-<app-timeline [begin]="begin" [end]="end"></app-timeline>
+<app-timeline [begin]="begin" [end]="end" (changed)="changeData($event)"></app-timeline>
 

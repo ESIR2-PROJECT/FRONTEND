@@ -30,6 +30,9 @@ export class MapComponent implements OnInit{
     this.showInfo.emit(borne);
     this.sideNavService.show(borne);
   }
+  changeData(d: Date){
+    this.borne = this.dataservice.getBornesUntil(d)
+  }
 
 }
 
