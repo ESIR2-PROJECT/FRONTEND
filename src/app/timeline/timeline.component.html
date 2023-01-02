@@ -1,0 +1,12 @@
+<div class="map-overlay top">
+  <div class="map-overlay-inner">
+    <h2>Ann&eacute;e d'affichage</h2>
+    <input type="date" [(ngModel)]="date" (change)="change2()">
+    <label id="year"></label>
+    <input id="slider" type="range" [min]="begin.getTime()" [max]="end.getTime()" step="360000" [(ngModel)]="value" (change)="change()">
+    <div class="labels">
+      <span class="dateBegin">{{begin.getFullYear()}}</span>
+      <span class="dateEnd">{{end.getFullYear()}}</span>
+    </div>
+  </div>
+</div>

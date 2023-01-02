@@ -16,6 +16,8 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
 import {NgxMapboxGLModule} from "ngx-mapbox-gl";
 
+import { TimelineComponent } from './timeline/timeline.component';
+import {FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +25,7 @@ import {NgxMapboxGLModule} from "ngx-mapbox-gl";
     NavComponent,
     SideDescriptionComponent,
     HomeComponent,
+    TimelineComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,9 @@ import {NgxMapboxGLModule} from "ngx-mapbox-gl";
     MatIconModule,
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1IjoidGhvbWVnYSIsImEiOiJjbGJjZmVtcGgwM3FlM29xdTdqdTNzcGVoIn0.5H6TAGMFFAu-9maHaoW-BA',
-    })
+    }),
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
