@@ -1,22 +1,25 @@
 <mat-drawer #drawer class="sidenav" mode="side">
-  <div class="d-flex m-2">
-    <hr class="mt-4 w-100"/>
-    <button mat-icon-button (click)="drawer.close()">
-      <mat-icon color="primary">cancel_outline</mat-icon>
-    </button>
-  </div>
-  <div class="borne-info mx-3">
-    <div class="title">
-      <p class="location"> Noissy-Sur-Mer </p>
-      <h2 class="name"> Borne de recharge SIUUUUUU </h2>
-      <p class="date-mise-service"> 13/12/2022 </p>
+  <div *ngIf="borne !== undefined">
+    <div class="d-flex m-2">
+      <hr class="mt-4 w-100"/>
+      <button mat-icon-button (click)="drawer.close()">
+        <mat-icon color="primary">cancel_outline</mat-icon>
+      </button>
     </div>
-    <p>E/F: Oui</p>
-    <p> <strong> Horaires de disponibilités: </strong></p>
-    <ul>
-      <li>Lundi-Vendredi: 8h00 - 18h00</li>
-      <li>Samedi: 9h00 - 13h00</li>
-      <li>Dimanche: Fermé</li>
-    </ul>
+    <div class="borne-info mx-3">
+      <div class="title">
+        <p class="location"> {{borne.station.address}} </p>
+        <h2 class="name"> {{borne.station.nom}} </h2>
+        <p class="date-mise-service"> {{borne.miseEnService.toLocaleDateString()}} </p>
+      </div>
+      <p>Type: {{borne.priseType}}</p>
+      <p> <strong> Horaires de disponibilités: </strong></p>
+      <ul>
+        <li *ngFor="let e of borne.horaires">{{e.debut.toTimeString().split(" ")[0]}} {{e.fin.toTimeString().split(" ")[0]}}</li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="borne === undefined">
+    No borne selected
   </div>
 </mat-drawer>

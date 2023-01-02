@@ -28,6 +28,7 @@ export class MapComponent implements OnInit{
   }
   giveInfo(borne:Borne){
     this.showInfo.emit(borne);
+    this.sideNavService.show(borne);
   }
 
 }
