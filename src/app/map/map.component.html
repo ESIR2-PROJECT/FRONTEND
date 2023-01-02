@@ -1,10 +1,13 @@
 <mgl-map
   [style]="'mapbox://styles/mapbox/streets-v12'"
   [zoom]="[9]"
-  [center]="[-74.5, 40]"
+  [center]="[-1.6833, 48.1033]"
 >
+  <div *ngFor="let point of borne">
+    <mgl-marker [lngLat]="[point.coordonnees.longitude,point.coordonnees.latitude]" >
+      <div class="marker" (click)="giveInfo(point)"></div>
+    </mgl-marker>
+  </div>
 </mgl-map>
-<app-timeline [begin]="begin" [end]="end"></app-timeline>
-<button mat-button (click)="sideNavService.toggle()">Click</button>
-
+<app-timeline [begin]="begin" [end]="end" (changed)="changeData($event)"></app-timeline>
 

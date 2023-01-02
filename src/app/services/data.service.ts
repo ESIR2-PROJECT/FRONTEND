@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { parse } from 'csv-parse/.';
 import { Borne, Coordonnees, Horaire, Station, Ville } from '../objects/borne';
 
 @Injectable({
@@ -7,8 +6,7 @@ import { Borne, Coordonnees, Horaire, Station, Ville } from '../objects/borne';
 })
 export class DataService {
 
-  dataSet = "/assets/data/consolidation-etalab-schema-irve-v-2.1.0-20221212.csv"
-  
+
   constructor() { }
 
 
@@ -69,9 +67,12 @@ export class DataService {
     let commune3 = "Bordeaux"
     let code_postal3 = "33300"
 
-    for (let i=0; i<3; i++) {
-      console.log(bornes[i])
-    }
+    let station3 = new Station(nom_station3, adresse_station3)
+    let horaire3 = new Horaire(debut3, fin3)
+    let coordonnees3 = new Coordonnees(longitude3, latitude3)
+    let ville3 = new Ville(commune3, code_postal3)
+
+    bornes.push(new Borne(nom_enseigne3, station3, type_prise3, [horaire3], date_mise_en_service3, coordonnees3, ville3))
 
     return bornes
   }
