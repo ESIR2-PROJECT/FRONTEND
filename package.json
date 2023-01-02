@@ -24,7 +24,6 @@
     "bootstrap": "^5.2.3",
     "mapbox-gl": "^2.11.1",
     "ngx-mapbox-gl": "^9.1.0",
-    "angular-mgl-timeline": "^1.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

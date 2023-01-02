@@ -17,7 +17,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {NgxMapboxGLModule} from "ngx-mapbox-gl";
 
 import { TimelineComponent } from './timeline/timeline.component';
-import { MglTimelineModule } from 'angular-mgl-timeline';
 import {FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
@@ -42,7 +41,6 @@ import {FormsModule} from "@angular/forms";
       accessToken: 'pk.eyJ1IjoidGhvbWVnYSIsImEiOiJjbGJjZmVtcGgwM3FlM29xdTdqdTNzcGVoIn0.5H6TAGMFFAu-9maHaoW-BA',
     }),
     AppRoutingModule,
-    MglTimelineModule,
     FormsModule
   ],
   providers: [],
