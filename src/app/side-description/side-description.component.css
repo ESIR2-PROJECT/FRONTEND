@@ -1,0 +1,27 @@
+.sidenav {
+  width: 35em;
+}
+
+.borne-info > .title p {
+  line-height: 20px;
+}
+
+.borne-info > .title .name {
+  line-height: 0;
+}
+
+.date-mise-service {
+  line-height: 0;
+  margin-left: 2px;
+  color: darkgrey;
+}
+
+.borne-info .location{
+  color: darkgrey;
+  font-size: small;
+  margin-bottom: 0.5em;
+}
+
+.borne-info .name {
+  margin-left: 2px;
+}

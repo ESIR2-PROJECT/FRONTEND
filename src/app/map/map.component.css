@@ -1,0 +1,7 @@
+mgl-map {
+  height: calc(100% - 50px);
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+
+}

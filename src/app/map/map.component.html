@@ -1,1 +1,9 @@
-<div id="map"></div>
+<mgl-map
+  [style]="'mapbox://styles/mapbox/streets-v12'"
+  [zoom]="[9]"
+  [center]="[-74.5, 40]"
+>
+</mgl-map>
+<button mat-button (click)="sideNavService.toggle()">Click</button>
+
+
