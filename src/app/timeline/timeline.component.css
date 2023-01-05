@@ -1,8 +1,13 @@
+@media screen and (max-width: 700px) {
+  .map-overlay{
+    width: 100% !important;
+  }
+}
+
 .map-overlay {
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   position: absolute;
-  width: 25%;
-  min-width: 500px;
+  width: 33%;
   top: 0;
   left: 0;
   padding: 10px;
