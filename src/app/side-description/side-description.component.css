@@ -1,3 +1,9 @@
+@media screen and (max-width: 700px) {
+  .sidenav{
+    width: 100% !important;
+  }
+}
+
 .sidenav {
   width: 35em;
 }
