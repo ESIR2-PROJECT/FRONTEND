@@ -1,15 +1,17 @@
-FROM node:19 as prod
-ENV NODE_ENV=production
-
-WORKDIR /app
-EXPOSE 4200
-
+### STAGE 1: Build ###
+FROM node:19 AS build
+WORKDIR /usr/src/app
 COPY . .
+RUN npm install
+RUN npm install -g @angular/cli
+RUN npm run build
+### STAGE 2: Run ###
+FROM nginx:1.23.3 as prod
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /usr/src/app/dist/frontend /usr/share/nginx/html
 
-RUN npm install --production
 
-CMD [ "npm", "run", "start" ]
-
+# Dev
 
 FROM node:19 as dev
 

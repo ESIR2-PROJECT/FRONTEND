@@ -3,8 +3,6 @@ services:
   front:
     build:
       context: .
-      target: dev
+      target: prod
     ports:
-      - 4200:4200
-    volumes:
-      - ./:/appdev
+      - 4200:80
