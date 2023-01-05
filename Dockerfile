@@ -13,6 +13,8 @@ CMD [ "npm", "run", "start" ]
 
 FROM node:19 as dev
 
+RUN npm install -g @angular/cli
+
 WORKDIR /appdev
 EXPOSE 4200
 
