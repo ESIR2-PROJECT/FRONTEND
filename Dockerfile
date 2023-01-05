@@ -4,11 +4,9 @@ ENV NODE_ENV=production
 WORKDIR /app
 EXPOSE 4200
 
-COPY ["package.json", "package-lock.json*", "./"]
+COPY . .
 
 RUN npm install --production
-
-COPY . .
 
 CMD [ "npm", "run", "start" ]
 
