@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 FROM node:19 AS build
 WORKDIR /usr/src/app
-COPY . .
+COPY .. .
 RUN npm install
 RUN npm install -g @angular/cli
 RUN npm run build
