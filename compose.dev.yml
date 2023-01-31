@@ -1,0 +1,11 @@
+version: '3'
+services:
+  front:
+    build:
+      context: FRONTEND
+      target: dev
+    ports:
+      - 4200:4200
+    restart: always
+    volumes:
+      - ./FRONTEND/src:/appdev/src
