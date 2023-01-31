@@ -4,4 +4,4 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:resolve
 
-CMD ["mvn", "spring-boot:run"]
+CMD ["mvn", "package"]
