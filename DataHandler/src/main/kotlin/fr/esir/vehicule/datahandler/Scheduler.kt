@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class Scheduler {
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 1000) // en ms
     fun scheduleFixedRateTask() {
-        println("Fixed rate task - " + System.currentTimeMillis() / 1000)
+        println("Bonjour je m'execute toutes les secondes")
     }
 }
