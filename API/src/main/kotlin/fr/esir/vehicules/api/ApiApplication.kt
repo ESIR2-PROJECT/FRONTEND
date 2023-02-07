@@ -6,7 +6,7 @@ import org.springframework.boot.runApplication
 @SpringBootApplication
 class ApiApplication() {
 	init {
-		println("Hello world")INI
+		println("Hello world")
 	}
 }
 
