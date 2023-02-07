@@ -15,12 +15,7 @@ export class Station{
         public address: string
     ){}
 }
-export class Horaire{
-    constructor(
-        public debut: Date,
-        public fin: Date
-    ){}
-}
+
 export class Coordonnees {
     constructor(
         public longitude: number,
