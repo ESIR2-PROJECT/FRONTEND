@@ -15,7 +15,7 @@
       <p>Type: {{borne.priseType}}</p>
       <p> <strong> Horaires de disponibilités: </strong></p>
       <ul>
-        <li *ngFor="let e of borne.horaires">{{e.debut.toTimeString().split(" ")[0]}} {{e.fin.toTimeString().split(" ")[0]}}</li>
+        <li> {{borne.horaires}}</li>
       </ul>
     </div>
   </div>
