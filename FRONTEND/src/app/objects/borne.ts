@@ -3,7 +3,7 @@ export class Borne{
         public nomEnseigne: string,
         public station: Station,
         public priseType: String[],
-        public horaires: Horaire[],
+        public horaires: string,
         public miseEnService: Date,
         public coordonnees: Coordonnees,
         public ville: Ville,
