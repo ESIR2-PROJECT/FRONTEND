@@ -1,12 +1,20 @@
 package fr.esir.vehicules.api
 
+import fr.esir.vehicules.api.repos.Bornes
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.runApplication
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
-class ApiApplication() {
+@EntityScan("fr.esir.vehicules.dbobjects.bornes")
+class ApiApplication(
+		bornes: Bornes
+) {
+
 	init {
-		println("Hello world")
+		println(bornes.count())
 	}
 }
 
