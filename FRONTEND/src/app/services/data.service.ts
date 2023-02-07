@@ -40,7 +40,7 @@ export class DataService {
       }
 
       bornes.push(
-        new Borne(b.nom_enseigne, station, typeprise, horaires, new Date(b.date_mise_en_service), coords, ville)
+        new Borne(b.nom_enseigne, station, "Toutes", horaires, new Date(b.date_mise_en_service), coords, ville)
       )
     }
 
