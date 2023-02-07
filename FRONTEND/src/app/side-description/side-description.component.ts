@@ -11,7 +11,6 @@ import {
 import {MatDrawer} from "@angular/material/sidenav";
 import {SideNavService} from "../@core/side-nav/side-nav.service";
 import {Borne} from "../objects/borne";
-import {Horaire} from "../objects/borne";
 
 @Component({
   selector: 'app-side-description',

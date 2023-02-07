@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Borne, Coordonnees, Horaire, Station, Ville } from '../objects/borne';
+import { Borne, Coordonnees, Station, Ville } from '../objects/borne';
 import * as data from "./data.data"
 
 @Injectable({
@@ -40,7 +40,7 @@ export class DataService {
       }
 
       bornes.push(
-        new Borne(b.nom_enseigne, station, "Toutes", horaires, new Date(b.date_mise_en_service), coords, ville)
+        new Borne(b.nom_enseigne, station, typeprise, horaires, new Date(b.date_mise_en_service), coords, ville)
       )
     }
 
