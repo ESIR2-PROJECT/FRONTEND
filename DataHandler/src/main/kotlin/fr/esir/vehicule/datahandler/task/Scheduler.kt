@@ -14,10 +14,8 @@ class Scheduler {
 
     val logger: Logger = LoggerFactory.getLogger(Scheduler::class.java)
 
-    @Scheduled(fixedRate = 10000) // en ms
+    @Scheduled(fixedRate = 100000000) // en ms
     fun scheduleFixedRateTask() {
-        val data = getData()
-        logger.debug(data)
     }
 
     private fun getData(): String {
