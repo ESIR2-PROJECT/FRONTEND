@@ -12,8 +12,8 @@
         <h2 class="name"> {{borne.station.nom}} </h2>
         <p class="date-mise-service"> {{borne.miseEnService.toLocaleDateString()}} </p>
       </div>
-      <p>Type: {{borne.priseType}}</p>
-      <p> <strong> Horaires de disponibilités: </strong></p>
+      <p> <strong>Type de prise :</strong> {{borne.priseType}}</p>
+      <p> <strong> Horaires de disponibilités : </strong></p>
       <ul>
         <li *ngFor="let e of borne.horaires">{{e.debut.toTimeString().split(" ")[0]}} {{e.fin.toTimeString().split(" ")[0]}}</li>
       </ul>
