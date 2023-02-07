@@ -1,21 +1,15 @@
 package fr.esir.vehicules.api
 
-import fr.esir.vehicules.api.repos.Bornes
-import org.springframework.beans.factory.annotation.Autowired
+import fr.esir.vehicules.api.repos.BornesRepository
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.runApplication
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication
-@EntityScan("fr.esir.vehicules.dbobjects.bornes")
-class ApiApplication(
-		bornes: Bornes
-) {
+@EntityScan(basePackages = ["fr.esir.vehicules.dbobjects.bornes"])
+class ApiApplication() {
 
-	init {
-		println(bornes.count())
-	}
 }
 
 fun main(args: Array<String>) {
