@@ -2,7 +2,7 @@ export class Borne{
     constructor(
         public nomEnseigne: string,
         public station: Station,
-        public priseType: string,
+        public priseType: String[],
         public horaires: Horaire[],
         public miseEnService: Date,
         public coordonnees: Coordonnees,
