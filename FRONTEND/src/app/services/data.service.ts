@@ -14,6 +14,10 @@ export class DataService {
    getAllBorne():Promise<Borne[]>{
     return this.api.get({endpoint:'/bornes'});
   }
+
+   getBorneUntil(date : Date):Promise<Borne[]>{
+    return this.api.get({endpoint:'/bornes',queryParams:{date:date}});
+  }
   getAllBornes(): Borne[] {
     let bornes: Borne[] = []
 
