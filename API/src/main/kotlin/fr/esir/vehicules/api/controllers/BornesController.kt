@@ -1,5 +1,6 @@
 package fr.esir.vehicules.api.controllers;
 
+import fr.esir.vehicules.api.objects.ResponseAll
 import fr.esir.vehicules.api.services.BornesService
 import fr.esir.vehicules.dbobjects.bornes.Borne
 import org.springframework.data.repository.query.Param
@@ -17,10 +18,15 @@ class BornesController(
         val bornesService: BornesService
 ) {
     @GetMapping
-    fun getAll(@RequestParam(required = false) date: Date?): ResponseEntity<List<Borne>>{
-        if(date == null)
-            return ResponseEntity.ok(bornesService.getAll())
-        return ResponseEntity.ok(bornesService.getAfter(date))
+    fun getAll(@RequestParam(required = false) date: Date?): ResponseEntity<ResponseAll>{
+        val bornes = if(date == null)
+            bornesService.getAll()
+        else
+            bornesService.getAfter(date)
+
+        return ResponseEntity.ok(
+                ResponseAll(bornes)
+        )
     }
     @GetMapping("/:id")
     fun getAfter(@Param("id") id: Int): ResponseEntity<Borne>{
