@@ -24,7 +24,10 @@ export class MapComponent implements OnInit{
   }
   ngOnInit(): void {
     var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-    this.borne=this.dataservice.getAllBornes();
+    //this.borne=this.dataservice.getAllBornes();
+    this.dataservice.getAllBorne().then( (bornes:Borne[])=>{
+      this.borne=bornes;
+    });
   }
   giveInfo(borne:Borne){
     this.showInfo.emit(borne);

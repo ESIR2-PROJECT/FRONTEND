@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Borne, Coordonnees, Station, Ville } from '../objects/borne';
 import * as data from "./data.data"
+import {ApiHelperService} from "./api-helper.service";
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,11 @@ import * as data from "./data.data"
 export class DataService {
 
 
-  constructor() { }
+  constructor(private api: ApiHelperService) { }
 
-
+   getAllBorne():Promise<Borne[]>{
+    return this.api.get({endpoint:'/bornes'});
+  }
   getAllBornes(): Borne[] {
     let bornes: Borne[] = []
 
