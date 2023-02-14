@@ -23,7 +23,6 @@ export class MapComponent implements OnInit{
               private dataservice : DataService) {
   }
   ngOnInit(): void {
-    var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
     this.borne=this.dataservice.getAllBornes();
   }
   giveInfo(borne:Borne){
