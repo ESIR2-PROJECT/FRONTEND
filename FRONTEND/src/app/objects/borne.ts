@@ -2,8 +2,8 @@ export class Borne{
     constructor(
         public nomEnseigne: string,
         public station: Station,
-        public priseType: string,
-        public horaires: Horaire[],
+        public priseType: String[],
+        public horaires: string,
         public miseEnService: Date,
         public coordonnees: Coordonnees,
         public ville: Ville,
@@ -15,12 +15,7 @@ export class Station{
         public address: string
     ){}
 }
-export class Horaire{
-    constructor(
-        public debut: Date,
-        public fin: Date
-    ){}
-}
+
 export class Coordonnees {
     constructor(
         public longitude: number,
