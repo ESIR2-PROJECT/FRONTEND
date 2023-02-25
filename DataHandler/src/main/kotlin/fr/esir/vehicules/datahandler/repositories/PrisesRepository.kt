@@ -1,4 +1,4 @@
-package fr.esir.vehicule.datahandler.repositories
+package fr.esir.vehicules.datahandler.repositories
 
 import fr.esir.vehicules.dbobjects.bornes.Prise
 import org.springframework.data.repository.CrudRepository

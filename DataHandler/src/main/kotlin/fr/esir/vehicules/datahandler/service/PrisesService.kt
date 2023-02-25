@@ -1,6 +1,6 @@
-package fr.esir.vehicule.datahandler.service
+package fr.esir.vehicules.datahandler.service
 
-import fr.esir.vehicule.datahandler.repositories.PrisesRepository
+import fr.esir.vehicules.datahandler.repositories.PrisesRepository
 import fr.esir.vehicules.dbobjects.bornes.Prise
 import org.springframework.stereotype.Service
 

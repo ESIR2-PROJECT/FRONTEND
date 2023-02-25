@@ -1,4 +1,4 @@
-package fr.esir.vehicule.datahandler.service
+package fr.esir.vehicules.datahandler.service
 
 import com.opencsv.CSVParserBuilder
 import com.opencsv.CSVReaderBuilder
