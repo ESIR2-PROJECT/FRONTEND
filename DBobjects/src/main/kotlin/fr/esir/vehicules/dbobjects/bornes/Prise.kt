@@ -9,8 +9,11 @@ import jakarta.persistence.Id
 class Prise (
         @Id
         @GeneratedValue
-        val id: Int,
+        val id: Int?,
 
         @Column
-        val name: String
+        val name: String,
+
+        @Column
+        val code: String
 )

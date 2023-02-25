@@ -1,6 +1,6 @@
 package fr.esir.vehicule.datahandler.controller
 
-import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import fr.esir.vehicule.datahandler.service.BornesService
 import fr.esir.vehicule.datahandler.service.DataService
 import org.springframework.core.io.buffer.DataBuffer
 import org.springframework.core.io.buffer.DataBufferUtils
@@ -16,19 +16,10 @@ import java.nio.charset.StandardCharsets
 
 
 @RestController
-class FunctionController(private final val dataService: DataService) {
+class FunctionController(private val bornesService: BornesService) {
     @GetMapping("/getData")
-    fun getData(): Mono<String> {
-        val flux: Flux<DataBuffer> = dataService.getData()
-        flux.map { dataBuffer: DataBuffer ->
-            val inputStream: InputStream = dataBuffer.asInputStream()
-            csvReader().open(inputStream) {
-                readAllWithHeaderAsSequence().forEach { row ->
-                    println(row)
-                }
-            }
-        }
-        return Mono.just("ok");
+    fun getData() {
+        bornesService.updateBornes()
     }
 
 
