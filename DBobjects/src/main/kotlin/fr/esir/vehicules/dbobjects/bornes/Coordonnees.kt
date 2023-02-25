@@ -14,5 +14,5 @@ class Coordonnees (
         @Column
         val longitude: Double,
         @Column
-        val latiture: Double
+        val latitude: Double
 )
