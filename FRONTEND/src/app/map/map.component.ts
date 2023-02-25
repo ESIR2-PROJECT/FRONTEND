@@ -9,7 +9,7 @@ import {Borne, Coordonnees} from "../objects/borne";
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit{
+export class MapComponent{
 
   name:String = "Map";
   borne:Borne[]=[];
@@ -21,14 +21,6 @@ export class MapComponent implements OnInit{
 
   constructor(public sideNavService: SideNavService,
               private dataservice : DataService) {
-  }
-  ngOnInit(): void {
-    //var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-    //this.borne=this.dataservice.getAllBornes();
-    this.dataservice.getAllBorne().then( (bornes:Borne[])=>{
-      this.borne=bornes;
-      console.log(bornes)
-    });
   }
   giveInfo(borne:Borne){
     this.showInfo.emit(borne);
