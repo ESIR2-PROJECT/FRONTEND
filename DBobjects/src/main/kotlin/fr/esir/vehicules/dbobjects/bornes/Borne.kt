@@ -23,7 +23,7 @@ class Borne (
         @OneToOne(cascade = [CascadeType.ALL])
         @JoinColumn
         val station: Station,
-        @ManyToMany(cascade = [CascadeType.ALL])
+        @ManyToMany(cascade = [CascadeType.DETACH])
         @JoinTable
         val priseType: Set<Prise>,
         @Column
