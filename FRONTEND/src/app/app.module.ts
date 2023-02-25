@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
 import {NgxMapboxGLModule} from "ngx-mapbox-gl";
-
+import {HttpClientModule} from "@angular/common/http";
 import { TimelineComponent } from './timeline/timeline.component';
 import {FormsModule} from "@angular/forms";
 @NgModule({
@@ -29,6 +29,7 @@ import {FormsModule} from "@angular/forms";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,

@@ -22,6 +22,6 @@ class BornesService(
         return res.get()
     }
     fun getAfter(date: Date): List<Borne> {
-        return bornesRepository.findByMiseEnServiceIsAfter(date)
+        return bornesRepository.findByMiseEnServiceIsBefore(date)
     }
 }

@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 import java.util.Date
 
 interface BornesRepository : CrudRepository<Borne, Int> {
-    fun findByMiseEnServiceIsAfter(date: Date): List<Borne>
+    fun findByMiseEnServiceIsBefore(date: Date): List<Borne>
 }

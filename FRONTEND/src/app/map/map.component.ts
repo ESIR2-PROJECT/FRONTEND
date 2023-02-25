@@ -23,14 +23,23 @@ export class MapComponent implements OnInit{
               private dataservice : DataService) {
   }
   ngOnInit(): void {
-    this.borne=this.dataservice.getAllBornes();
+    //var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+    //this.borne=this.dataservice.getAllBornes();
+    this.dataservice.getAllBorne().then( (bornes:Borne[])=>{
+      this.borne=bornes;
+      console.log(bornes)
+    });
   }
   giveInfo(borne:Borne){
     this.showInfo.emit(borne);
     this.sideNavService.show(borne);
   }
   changeData(d: Date){
-    this.borne = this.dataservice.getBornesUntil(d)
+    //this.borne = this.dataservice.getBornesUntil(d)
+    this.dataservice.getBorneUntil(d).then( (bornes:Borne[])=>{
+      this.borne=bornes;
+      console.log(bornes)
+    });
   }
 
 }

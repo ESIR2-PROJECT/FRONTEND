@@ -6,13 +6,11 @@ import fr.esir.vehicules.dbobjects.bornes.Borne
 import org.springframework.data.repository.query.Param
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
+@CrossOrigin(maxAge = 3600, origins = arrayOf("http://localhost:4200"))
 @RequestMapping(value = ["/bornes"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class BornesController(
         val bornesService: BornesService
