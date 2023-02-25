@@ -1,6 +1,6 @@
-package fr.esir.vehicule.datahandler.service
+package fr.esir.vehicules.datahandler.service
 
-import fr.esir.vehicule.datahandler.repositories.BornesRepository
+import fr.esir.vehicules.datahandler.repositories.BornesRepository
 import fr.esir.vehicules.dbobjects.bornes.*
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -9,9 +9,9 @@ import java.sql.Date
 
 @Service
 class BornesService(
-    val dataService: DataService,
-    val prisesService: PrisesService,
-    val bornesRepository: BornesRepository,
+        val dataService: DataService,
+        val prisesService: PrisesService,
+        val bornesRepository: BornesRepository,
 )
 {
 

@@ -1,7 +1,7 @@
-package fr.esir.vehicule.datahandler
+package fr.esir.vehicules.datahandler
 
-import fr.esir.vehicule.datahandler.service.BornesService
-import fr.esir.vehicule.datahandler.service.PrisesService
+import fr.esir.vehicules.datahandler.service.BornesService
+import fr.esir.vehicules.datahandler.service.PrisesService
 import jakarta.annotation.PostConstruct
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
