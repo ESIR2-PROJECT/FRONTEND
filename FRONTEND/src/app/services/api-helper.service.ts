@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular
 import {environment} from "../environments/environment.local";
 import {lastValueFrom, Observable} from "rxjs";
 
-const base_url: string = 'http://localhost:8080';
+const base_url: string = '/api';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +17,7 @@ export class ApiHelperService {
              }: {
     endpoint: string;
     queryParams?: any;
-  }): Promise<any> {environment
+  }): Promise<any> {
     return this.request({ endpoint, method: 'GET', queryParams });
   }
 

@@ -27,6 +27,7 @@ export class MapComponent implements OnInit{
     //this.borne=this.dataservice.getAllBornes();
     this.dataservice.getAllBorne().then( (bornes:Borne[])=>{
       this.borne=bornes;
+      console.log(bornes)
     });
   }
   giveInfo(borne:Borne){
@@ -37,6 +38,7 @@ export class MapComponent implements OnInit{
     //this.borne = this.dataservice.getBornesUntil(d)
     this.dataservice.getBorneUntil(d).then( (bornes:Borne[])=>{
       this.borne=bornes;
+      console.log(bornes)
     });
   }
 
