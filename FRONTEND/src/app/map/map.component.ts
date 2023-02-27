@@ -9,7 +9,7 @@ import {Borne, BornePoint, Coordonnees} from "../objects/borne";
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent{
+export class MapComponent implements OnInit{
 
   name:String = "Map";
   borne:BornePoint[]=[];
