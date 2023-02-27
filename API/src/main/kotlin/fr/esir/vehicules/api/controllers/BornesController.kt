@@ -1,5 +1,5 @@
 package fr.esir.vehicules.api.controllers;
-
+import fr.esir.vehicules.api.objects.Point
 import fr.esir.vehicules.api.objects.ResponseAll
 import fr.esir.vehicules.api.services.BornesService
 import fr.esir.vehicules.dbobjects.bornes.Borne
@@ -18,9 +18,9 @@ class BornesController(
     @GetMapping
     fun getAll(@RequestParam(required = false) date: Date?): ResponseEntity<ResponseAll>{
         val bornes = if(date == null)
-            bornesService.getAll()
+            bornesService.getAll().map { e -> Point(e.id, e.coordonnees.longitude, e.coordonnees.latitude) }
         else
-            bornesService.getAfter(date)
+            bornesService.getAfter(date).map { e -> Point(e.id, e.coordonnees.longitude, e.coordonnees.latitude) }
 
         return ResponseEntity.ok(
                 ResponseAll(bornes)

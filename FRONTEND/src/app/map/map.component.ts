@@ -12,9 +12,9 @@ import {Borne, Coordonnees} from "../objects/borne";
 export class MapComponent{
 
   name:String = "Map";
-  borne:Borne[]=[];
+  borne:Coordonnees[]=[];
 
-  @Output() showInfo =new EventEmitter<Borne>();
+  @Output() showInfo =new EventEmitter<Coordonnees>();
 
   begin: Date = new Date("1999-01-01")
   end: Date = new Date()
@@ -22,13 +22,13 @@ export class MapComponent{
   constructor(public sideNavService: SideNavService,
               private dataservice : DataService) {
   }
-  giveInfo(borne:Borne){
+  giveInfo(borne:Coordonnees){
     this.showInfo.emit(borne);
     this.sideNavService.show(borne);
   }
   changeData(d: Date){
     //this.borne = this.dataservice.getBornesUntil(d)
-    this.dataservice.getBorneUntil(d).then( (bornes:Borne[])=>{
+    this.dataservice.getBorneUntil(d).then( (bornes:Coordonnees[])=>{
       this.borne=bornes;
       console.log(bornes)
     });
