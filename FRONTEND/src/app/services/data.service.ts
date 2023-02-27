@@ -16,7 +16,7 @@ export class DataService {
 
   getBorneID(id : number):Promise<Borne>{
     return this.api.get({endpoint:'/bornes/'+id}).then(data => {
-      return data.bornes
+      return data
     })
   }
 }
