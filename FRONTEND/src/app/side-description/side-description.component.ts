@@ -34,6 +34,7 @@ export class SideDescriptionComponent implements OnInit{
     this.event.subscribe((e)=>{
       //this.borne = e
       this.dataservice.getBorneID(e.id).then((borne:Borne)=>{
+        console.log(borne)
         this.borne=borne
       })
 
