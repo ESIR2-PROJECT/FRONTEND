@@ -3,7 +3,7 @@
   [zoom]="[9]"
   [center]="center">
   <div *ngFor="let point of borne">
-    <mgl-marker [lngLat]="[point.coordonnees.longitude,point.coordonnees.latitude]" >
+    <mgl-marker [lngLat]="[point.longitude,point.latitude]" >
       <div class="marker" (click)="giveInfo(point)"></div>
     </mgl-marker>
   </div>
