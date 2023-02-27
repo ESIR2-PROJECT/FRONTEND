@@ -26,8 +26,8 @@ class BornesController(
                 ResponseAll(bornes)
         )
     }
-    @GetMapping("/:id")
-    fun getAfter(@Param("id") id: Int): ResponseEntity<Borne>{
+    @GetMapping("/{id}")
+    fun getAfter(@PathVariable("id") id: Int): ResponseEntity<Borne>{
         return ResponseEntity.ok(bornesService.get(id))
     }
 }
