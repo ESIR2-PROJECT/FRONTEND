@@ -12,8 +12,8 @@ import java.util.Date
 class BornesService(
      val bornesRepository: BornesRepository
 ) {
-    fun getAll(): List<Borne> {
-        return bornesRepository.findAll().toList();
+    fun getAll(): List<Point> {
+        return bornesRepository.getAll()
     }
     fun get(id: Int): Borne {
         val res = bornesRepository.findById(id)
@@ -25,7 +25,7 @@ class BornesService(
         return bornesRepository.findByMiseEnServiceIsBefore(date)
     }
 
-    fun getByZone(latitudeTop: Double, latitudeBottom: Double, longitudeLeft: Double, longitudeRight: Double, date: Date?): List<Borne> {
+    fun getByZone(latitudeTop: Double, latitudeBottom: Double, longitudeLeft: Double, longitudeRight: Double, date: Date?): List<Point> {
         if(date == null)
             return bornesRepository.getByZone(latitudeTop, latitudeBottom, longitudeLeft, longitudeRight)
         return bornesRepository.getByZoneDate(latitudeTop, latitudeBottom, longitudeLeft, longitudeRight, date)

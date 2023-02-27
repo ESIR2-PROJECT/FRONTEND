@@ -16,14 +16,14 @@ class BornesController(
         val bornesService: BornesService
 ) {
     @GetMapping
-    fun getAll(@RequestParam(required = false) date: Date?): ResponseEntity<ResponseAll>{
+    fun getAll(@RequestParam(required = false) date: Date?): ResponseEntity<List<Point>>{
         val bornes = if(date == null)
-            bornesService.getAll().map { e -> Point(e.id, e.coordonnees.longitude, e.coordonnees.latitude) }
+            bornesService.getAll()
         else
             bornesService.getAfter(date)
 
         return ResponseEntity.ok(
-                ResponseAll(bornes)
+                bornes
         )
     }
     @GetMapping("/{id}")
@@ -37,7 +37,7 @@ class BornesController(
             @RequestParam latitudeBottom: Double,
             @RequestParam longitudeLeft: Double,
             @RequestParam longitudeRight: Double,
-            @RequestParam(required = false) date: Date?): ResponseEntity<List<Borne>>{
+            @RequestParam(required = false) date: Date?): ResponseEntity<List<Point>>{
         return ResponseEntity.ok(bornesService.getByZone(
                 latitudeTop, latitudeBottom, longitudeLeft, longitudeRight, date
         ))

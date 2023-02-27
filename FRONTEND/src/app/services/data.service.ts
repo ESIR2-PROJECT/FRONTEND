@@ -10,7 +10,7 @@ export class DataService {
 
    getBorneUntil(date : Date):Promise<BornePoint[]>{
     return this.api.get({endpoint:'/bornes',queryParams:{date:date}}).then(data => {
-      return data.bornes
+      return data
     })
   }
 
