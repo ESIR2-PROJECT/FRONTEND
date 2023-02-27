@@ -3,7 +3,7 @@ import {SideNavService} from "../@core/side-nav/side-nav.service";
 
 import {DataService} from "../services/data.service";
 import {Borne, BornePoint, Coordonnees} from "../objects/borne";
-import {EventData, MapboxEvent, MapMouseEvent, MapSourceDataEvent, Point} from "mapbox-gl";
+import {EventData, MapboxEvent, MapMouseEvent, MapSourceDataEvent, Point, Map, GeoJSONSource} from "mapbox-gl";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
@@ -18,6 +18,9 @@ export class MapComponent implements OnInit{
   loadingMap: boolean = false
   loadingQuery: boolean = false
   error: string|null = null
+
+  mapbox: Map|null = null
+  geojson: GeoJSONSource = new GeoJSONSource()
 
   @Output() showInfo =new EventEmitter<number>();
 
@@ -34,6 +37,7 @@ export class MapComponent implements OnInit{
 
   ngOnInit() {
     this.getCurrentLocation();
+    this.mapbox?.addSource("symbols-source", this.geojson)
   }
 
   giveInfo(e: MapMouseEvent){
@@ -61,7 +65,20 @@ export class MapComponent implements OnInit{
     this.loadingMap = true
     this.borne = []
     await this.dataservice.getBorneUntil(d).then((bornes: BornePoint[]) => {
-      this.borne = bornes;
+      let json = bornes.map(b => {
+        return {
+          id: b.id,
+          geometry: {
+            type: "Point",
+            coordinates: [b.latitude, b.longitude]
+          },
+          properties: {
+            id: b.id,
+            point: b
+          }
+        }
+      })
+      this.geojson.setData(json)
     }).catch((e: Error) => {
       this.loadingQuery = false
       this.error = e.message
