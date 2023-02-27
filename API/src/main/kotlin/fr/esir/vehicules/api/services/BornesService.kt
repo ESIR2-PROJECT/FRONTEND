@@ -1,5 +1,6 @@
 package fr.esir.vehicules.api.services
 
+import fr.esir.vehicules.api.objects.Point
 import fr.esir.vehicules.api.repos.BornesRepository
 import fr.esir.vehicules.dbobjects.bornes.Borne
 import org.springframework.http.HttpStatus
@@ -20,7 +21,7 @@ class BornesService(
             throw HttpClientErrorException(HttpStatus.NOT_FOUND, "borne id not found")
         return res.get()
     }
-    fun getAfter(date: Date): List<Borne> {
+    fun getAfter(date: Date): List<Point> {
         return bornesRepository.findByMiseEnServiceIsBefore(date)
     }
 

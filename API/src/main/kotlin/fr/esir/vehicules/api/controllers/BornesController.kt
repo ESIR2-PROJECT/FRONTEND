@@ -20,7 +20,7 @@ class BornesController(
         val bornes = if(date == null)
             bornesService.getAll().map { e -> Point(e.id, e.coordonnees.longitude, e.coordonnees.latitude) }
         else
-            bornesService.getAfter(date).map { e -> Point(e.id, e.coordonnees.longitude, e.coordonnees.latitude) }
+            bornesService.getAfter(date)
 
         return ResponseEntity.ok(
                 ResponseAll(bornes)
