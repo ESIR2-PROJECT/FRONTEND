@@ -21,7 +21,7 @@ import {DataService} from "../services/data.service";
 export class SideDescriptionComponent implements OnInit{
   @ViewChild("drawer", {static: true}) sideNav!: MatDrawer;
 
-  event!: EventEmitter<BornePoint>
+  event!: EventEmitter<number>
   borne?: Borne
 
   constructor(public sideNavService: SideNavService,private dataservice : DataService) {
@@ -31,9 +31,9 @@ export class SideDescriptionComponent implements OnInit{
     this.sideNavService.setDrawer(this.sideNav);
     this.event = this.sideNavService.getEvent()
 
-    this.event.subscribe((e: BornePoint)=>{
+    this.event.subscribe((e: number)=>{
       //this.borne = e
-      this.dataservice.getBorneID(e.id).then((borne:Borne)=>{
+      this.dataservice.getBorneID(e).then((borne:Borne)=>{
         this.borne=borne
       })
 

@@ -17,6 +17,10 @@
         type: 'Point',
         coordinates: [point.longitude,point.latitude]
       }"
+      [properties]="{
+        id: point.id,
+        point: point
+      }"
 
     ></mgl-feature>
   </mgl-geojson-source>
@@ -70,6 +74,7 @@
       'circle-stroke-width': 1,
       'circle-stroke-color': '#fff'
     }"
+    (layerClick)="giveInfo($event)"
   >
   </mgl-layer>
 </mgl-map>

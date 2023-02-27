@@ -3,7 +3,7 @@ import {SideNavService} from "../@core/side-nav/side-nav.service";
 
 import {DataService} from "../services/data.service";
 import {Borne, BornePoint, Coordonnees} from "../objects/borne";
-import {MapMouseEvent} from "mapbox-gl";
+import {MapMouseEvent, Point} from "mapbox-gl";
 
 @Component({
   selector: 'app-map',
@@ -15,7 +15,7 @@ export class MapComponent implements OnInit{
   name:String = "Map";
   borne:BornePoint[]=[];
 
-  @Output() showInfo =new EventEmitter<BornePoint>();
+  @Output() showInfo =new EventEmitter<number>();
 
   begin: Date = new Date("1999-01-01")
   end: Date = new Date()
@@ -33,7 +33,13 @@ export class MapComponent implements OnInit{
     this.getCurrentLocation();
   }
 
-  giveInfo(borne:BornePoint){
+  giveInfo(e: MapMouseEvent){
+    const features = e.target.queryRenderedFeatures(e.point, {
+      layers: ['unclustered-point'] // replace with your layer name
+    });
+    if(features.length === 0)
+      return
+    let borne: number = features[0].properties!['id']
     this.showInfo.emit(borne);
     this.sideNavService.show(borne);
   }
