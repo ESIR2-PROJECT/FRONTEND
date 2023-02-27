@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/c
 import {SideNavService} from "../@core/side-nav/side-nav.service";
 
 import {DataService} from "../services/data.service";
-import {Borne, Coordonnees} from "../objects/borne";
+import {Borne, BornePoint, Coordonnees} from "../objects/borne";
 
 @Component({
   selector: 'app-map',
@@ -12,9 +12,9 @@ import {Borne, Coordonnees} from "../objects/borne";
 export class MapComponent{
 
   name:String = "Map";
-  borne:Coordonnees[]=[];
+  borne:BornePoint[]=[];
 
-  @Output() showInfo =new EventEmitter<Coordonnees>();
+  @Output() showInfo =new EventEmitter<BornePoint>();
 
   begin: Date = new Date("1999-01-01")
   end: Date = new Date()
@@ -22,13 +22,13 @@ export class MapComponent{
   constructor(public sideNavService: SideNavService,
               private dataservice : DataService) {
   }
-  giveInfo(borne:Coordonnees){
+  giveInfo(borne:BornePoint){
     this.showInfo.emit(borne);
     this.sideNavService.show(borne);
   }
   changeData(d: Date){
     //this.borne = this.dataservice.getBornesUntil(d)
-    this.dataservice.getBorneUntil(d).then( (bornes:Coordonnees[])=>{
+    this.dataservice.getBorneUntil(d).then( (bornes:BornePoint[])=>{
       this.borne=bornes;
       console.log(bornes)
     });

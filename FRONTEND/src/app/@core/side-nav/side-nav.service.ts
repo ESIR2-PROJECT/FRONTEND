@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {MatDrawer} from "@angular/material/sidenav";
-import {Borne, Coordonnees} from "../../objects/borne";
+import {Borne, BornePoint, Coordonnees} from "../../objects/borne";
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +8,8 @@ import {Borne, Coordonnees} from "../../objects/borne";
 export class SideNavService {
 
   drawer!: MatDrawer;
-  borne?: Coordonnees
-  changed: EventEmitter<Coordonnees> = new EventEmitter<Coordonnees>()
+  borne?: BornePoint
+  changed: EventEmitter<BornePoint> = new EventEmitter<BornePoint>()
   constructor() { }
 
   setDrawer(drawer: MatDrawer) {
@@ -20,7 +20,7 @@ export class SideNavService {
     this.drawer.toggle();
   }
 
-  show(borne: Coordonnees) {
+  show(borne: BornePoint) {
     this.drawer.open()
     this.borne = borne
     this.changed.emit(borne)
@@ -28,10 +28,10 @@ export class SideNavService {
   close(){
     this.drawer.close()
   }
-  getBorne(): Coordonnees|undefined {
+  getBorne(): BornePoint|undefined {
     return this.borne;
   }
-  getEvent(): EventEmitter<Coordonnees> {
+  getEvent(): EventEmitter<BornePoint> {
     return this.changed
   }
 }

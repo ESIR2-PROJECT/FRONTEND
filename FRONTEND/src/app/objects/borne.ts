@@ -10,6 +10,14 @@ export class Borne{
         public ville: Ville,
     ){}
 }
+export class BornePoint{
+  constructor(
+    public id: number,
+    public latitude: number,
+    public longitude: number
+  ) {
+  }
+}
 export class Station{
     constructor(
         public id: number,
