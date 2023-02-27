@@ -3,7 +3,6 @@ package fr.esir.vehicules.api.services
 import fr.esir.vehicules.api.repos.BornesRepository
 import fr.esir.vehicules.dbobjects.bornes.Borne
 import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException
 import java.util.Date
@@ -23,5 +22,11 @@ class BornesService(
     }
     fun getAfter(date: Date): List<Borne> {
         return bornesRepository.findByMiseEnServiceIsBefore(date)
+    }
+
+    fun getByZone(latitudeTop: Double, latitudeBottom: Double, longitudeLeft: Double, longitudeRight: Double, date: Date?): List<Borne> {
+        if(date == null)
+            return bornesRepository.getByZone(latitudeTop, latitudeBottom, longitudeLeft, longitudeRight)
+        return bornesRepository.getByZoneDate(latitudeTop, latitudeBottom, longitudeLeft, longitudeRight, date)
     }
 }
