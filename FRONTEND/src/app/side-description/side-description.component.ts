@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import {MatDrawer} from "@angular/material/sidenav";
 import {SideNavService} from "../@core/side-nav/side-nav.service";
-import {Borne} from "../objects/borne";
+import {Borne, BornePoint, Coordonnees} from "../objects/borne";
+import {DataService} from "../services/data.service";
 
 @Component({
   selector: 'app-side-description',
@@ -20,18 +21,22 @@ import {Borne} from "../objects/borne";
 export class SideDescriptionComponent implements OnInit{
   @ViewChild("drawer", {static: true}) sideNav!: MatDrawer;
 
-  event!: EventEmitter<Borne>
+  event!: EventEmitter<BornePoint>
   borne?: Borne
 
-  constructor(public sideNavService: SideNavService) {
+  constructor(public sideNavService: SideNavService,private dataservice : DataService) {
   }
 
   ngOnInit(): void {
     this.sideNavService.setDrawer(this.sideNav);
     this.event = this.sideNavService.getEvent()
 
-    this.event.subscribe((e)=>{
-      this.borne = e
+    this.event.subscribe((e: BornePoint)=>{
+      //this.borne = e
+      this.dataservice.getBorneID(e.id).then((borne:Borne)=>{
+        this.borne=borne
+      })
+
     })
   }
 

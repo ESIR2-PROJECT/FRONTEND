@@ -25,4 +25,4 @@ sh dev.sh # Linux
 ./dev.bat # Windows
 ```
 
-Access frontend with http://localhost:4200
+Access frontend with http://localhost/
