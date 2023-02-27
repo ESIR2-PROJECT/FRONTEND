@@ -3,6 +3,7 @@ import {SideNavService} from "../@core/side-nav/side-nav.service";
 
 import {DataService} from "../services/data.service";
 import {Borne, Coordonnees} from "../objects/borne";
+import {MapMouseEvent} from "mapbox-gl";
 
 @Component({
   selector: 'app-map',
@@ -18,6 +19,7 @@ export class MapComponent{
 
   begin: Date = new Date("1999-01-01")
   end: Date = new Date()
+  center: [number, number] = [-1.6833, 48.1033];
   timer = setTimeout(() => {
     this.getData(this.begin);
   }, 100);
@@ -29,6 +31,11 @@ export class MapComponent{
     this.showInfo.emit(borne);
     this.sideNavService.show(borne);
   }
+
+  centerMapTo(evt: MapMouseEvent) {
+    this.center = (evt as any).features[0].geometry.coordinates;
+  }
+
   changeData(d: Date){
     clearTimeout(this.timer)
     this.timer = setTimeout(() => {
@@ -41,7 +48,7 @@ export class MapComponent{
     // Déclenche la requête HTTP avec la valeur courante du slider
     this.dataservice.getBorneUntil(d).then( (bornes:Borne[])=>{
       this.borne=bornes;
-      console.log(bornes)
+      // console.log(bornes)
     });
   }
 
