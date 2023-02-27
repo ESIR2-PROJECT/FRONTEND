@@ -3,7 +3,8 @@ import {SideNavService} from "../@core/side-nav/side-nav.service";
 
 import {DataService} from "../services/data.service";
 import {Borne, BornePoint, Coordonnees} from "../objects/borne";
-import {MapMouseEvent, Point} from "mapbox-gl";
+import {EventData, MapboxEvent, MapMouseEvent, MapSourceDataEvent, Point} from "mapbox-gl";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-map',
@@ -14,16 +15,18 @@ export class MapComponent implements OnInit{
 
   name:String = "Map";
   borne:BornePoint[]=[];
+  loadingMap: boolean = false
+  loadingQuery: boolean = false
+  error: string|null = null
 
   @Output() showInfo =new EventEmitter<number>();
 
   begin: Date = new Date("1999-01-01")
   end: Date = new Date()
-  timer = setTimeout(() => {
-    this.getData(this.begin);
-  }, 100);
 
   center: [number, number] | undefined;
+
+  targetDate: Date = this.begin
 
   constructor(public sideNavService: SideNavService,
               private dataservice : DataService) {
@@ -48,21 +51,30 @@ export class MapComponent implements OnInit{
     this.center = (evt as any).features[0].geometry.coordinates;
   }
 
-  changeData(d: Date){
-    clearTimeout(this.timer)
-    this.timer = setTimeout(() => {
-      this.getData(d);
-    }, 100);
-    //this.borne = this.dataservice.getBornesUntil(d)
-    //this.dataservice.getBorneUntil(d).then( (bornes:BornePoint[])=>{
-  }
+  async changeData(d: Date) {
+    this.targetDate = d
 
-  getData(d: Date) {
-    // Déclenche la requête HTTP avec la valeur courante du slider
-    this.dataservice.getBorneUntil(d).then( (bornes:BornePoint[])=>{
-      this.borne=bornes;
-      // console.log(bornes)
-    });
+    if (this.loadingQuery)
+      return
+
+    this.loadingQuery = true
+    this.loadingMap = true
+    this.borne = []
+    await this.dataservice.getBorneUntil(d).then((bornes: BornePoint[]) => {
+      this.borne = bornes;
+    }).catch((e: Error) => {
+      this.loadingQuery = false
+      this.error = e.message
+    })
+    this.loadingMap = false
+    setTimeout(() => {
+      this.loadingQuery = false
+      if(this.targetDate != d)
+        this.changeData(this.targetDate)
+    }, 1000)
+  }
+  async updateDate(){
+
   }
   getCurrentLocation() {
     if (navigator.geolocation) {

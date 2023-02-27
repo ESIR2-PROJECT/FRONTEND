@@ -1,6 +1,7 @@
 <mgl-map
   [style]="'mapbox://styles/mapbox/dark-v9'"
   [zoom]="[9]"
+  [ngClass]="{loading: loadingMap}"
   [center]="center">
   <!--
   <div *ngFor="let point of borne">
