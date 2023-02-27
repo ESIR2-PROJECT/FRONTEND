@@ -19,9 +19,16 @@ export class MapComponent{
   begin: Date = new Date("1999-01-01")
   end: Date = new Date()
 
+  center: [number, number] | undefined;
+
   constructor(public sideNavService: SideNavService,
               private dataservice : DataService) {
   }
+
+  ngOnInit() {
+    this.getCurrentLocation();
+  }
+
   giveInfo(borne:Borne){
     this.showInfo.emit(borne);
     this.sideNavService.show(borne);
@@ -32,6 +39,15 @@ export class MapComponent{
       this.borne=bornes;
       console.log(bornes)
     });
+  }
+  getCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        this.center = [longitude, latitude];
+      });
+    }
   }
 
 }
