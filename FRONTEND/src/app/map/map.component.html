@@ -1,11 +1,81 @@
 <mgl-map
-  [style]="'mapbox://styles/mapbox/streets-v12'"
+  [style]="'mapbox://styles/mapbox/dark-v9'"
   [zoom]="[9]"
   [center]="center">
+  <!--
   <div *ngFor="let point of borne">
     <mgl-marker [lngLat]="[point.longitude,point.latitude]" >
       <div class="marker" (click)="giveInfo(point)"></div>
     </mgl-marker>
   </div>
+  -->
+  <mgl-geojson-source id="symbols-source" [clusterMaxZoom]="14" [clusterRadius]="50">
+    <mgl-feature
+      *ngFor="let point of borne; index as i"
+      [id]="i"
+      [geometry]="{
+        type: 'Point',
+        coordinates: [point.longitude,point.latitude]
+      }"
+      [properties]="{
+        id: point.id,
+        point: point
+      }"
+
+    ></mgl-feature>
+  </mgl-geojson-source>
+  <mgl-layer
+    id="clusters"
+    type="circle"
+    source="symbols-source"
+    [filter]="['has', 'point_count']"
+    [paint]="{
+      'circle-color': [
+        'step',
+        ['get', 'point_count'],
+        '#51bbd6',
+        100,
+        '#f1f075',
+        750,
+        '#f28cb1'
+      ],
+      'circle-radius': [
+        'step',
+        ['get', 'point_count'],
+        20,
+        100,
+        30,
+        750,
+        40
+      ]
+    }"
+  >
+  </mgl-layer>
+  <mgl-layer
+    id="cluster-count"
+    type="symbol"
+    source="symbols-source"
+    [filter]="['has', 'point_count']"
+    [layout]="{
+      'text-field': ['get', 'point_count_abbreviated'],
+      'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+      'text-size': 12
+    }"
+  >
+  </mgl-layer>
+  <mgl-layer
+    id="unclustered-point"
+    type="circle"
+    source="symbols-source"
+    [filter]="['!', ['has', 'point_count']]"
+    [paint]="{
+      'circle-color': '#11b4da',
+      'circle-radius': 4,
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#fff'
+    }"
+    (layerClick)="giveInfo($event)"
+  >
+  </mgl-layer>
 </mgl-map>
 <app-timeline  [begin]="begin" [end]="end" (changed)="changeData($event)"></app-timeline>
