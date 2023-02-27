@@ -5,8 +5,11 @@ services:
       context: FRONTEND
       target: prod
     ports:
-      - ${FRONT_PORT}:80
+      - ${FRONT_PORT}:8080
     restart: always
+
+  dbobjects:
+    build: DBobjects
 
   db:
     image: postgres:15.1
