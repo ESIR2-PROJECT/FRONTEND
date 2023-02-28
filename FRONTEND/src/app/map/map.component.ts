@@ -3,8 +3,9 @@ import {SideNavService} from "../@core/side-nav/side-nav.service";
 
 import {DataService} from "../services/data.service";
 import {Borne, BornePoint, Coordonnees} from "../objects/borne";
-import {EventData, MapboxEvent, MapMouseEvent, MapSourceDataEvent, Point} from "mapbox-gl";
+import {EventData, MapboxEvent, MapMouseEvent, MapSourceDataEvent, Point, Map, GeoJSONSource} from "mapbox-gl";
 import {HttpErrorResponse} from "@angular/common/http";
+import * as GeoJSON from 'geojson';
 
 @Component({
   selector: 'app-map',
@@ -19,6 +20,7 @@ export class MapComponent implements OnInit{
   loadingQuery: boolean = false
   error: string|null = null
 
+  mapbox!: Map
   @Output() showInfo =new EventEmitter<number>();
 
   begin: Date = new Date("1999-01-01")
@@ -32,7 +34,11 @@ export class MapComponent implements OnInit{
               private dataservice : DataService) {
   }
 
-  ngOnInit() {
+  mapInit(e: Map){
+    this.mapbox = e
+    this.changeData(this.targetDate)
+  }
+  ngOnInit(){
     this.getCurrentLocation();
   }
 
@@ -61,7 +67,29 @@ export class MapComponent implements OnInit{
     this.loadingMap = true
     this.borne = []
     await this.dataservice.getBorneUntil(d).then((bornes: BornePoint[]) => {
-      this.borne = bornes;
+      let features = bornes.map((b, i) => {
+        let feature: GeoJSON.Feature  = {
+          id: i,
+          type: 'Feature',
+          geometry: {
+            type: "Point",
+            coordinates: [b.longitude, b.latitude]
+          },
+          properties: {
+            id: b.id,
+            point: b
+          }
+        }
+        return feature
+      })
+      let collection: GeoJSON.FeatureCollection = {
+        type: "FeatureCollection",
+        features: features
+      }
+      let source = this.mapbox.getSource("symbols-source") as GeoJSONSource
+      console.log(source)
+      // this.borne = bornes
+      source.setData(collection)
     }).catch((e: Error) => {
       this.loadingQuery = false
       this.error = e.message
@@ -72,9 +100,6 @@ export class MapComponent implements OnInit{
       if(this.targetDate != d)
         this.changeData(this.targetDate)
     }, 1000)
-  }
-  async updateDate(){
-
   }
   getCurrentLocation() {
     if (navigator.geolocation) {
