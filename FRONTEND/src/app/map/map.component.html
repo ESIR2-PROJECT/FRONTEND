@@ -3,7 +3,7 @@
   [zoom]="[9]"
   [ngClass]="{loading: loadingMap}"
   [center]="center"
-  (load)="mapbox = $event"
+  (mapLoad)="mapInit($event)"
 >
   <!--
   <div *ngFor="let point of borne">
@@ -12,21 +12,8 @@
     </mgl-marker>
   </div>
   -->
-<!--  <mgl-geojson-source id="symbols-source" [clusterMaxZoom]="14" [clusterRadius]="50">-->
-<!--    <mgl-feature-->
-<!--      *ngFor="let point of borne; index as i"-->
-<!--      [id]="i"-->
-<!--      [geometry]="{-->
-<!--        type: 'Point',-->
-<!--        coordinates: [point.longitude,point.latitude]-->
-<!--      }"-->
-<!--      [properties]="{-->
-<!--        id: point.id,-->
-<!--        point: point-->
-<!--      }"-->
-
-<!--    ></mgl-feature>-->
-<!--  </mgl-geojson-source>-->
+  <mgl-geojson-source id="symbols-source" [clusterMaxZoom]="14" [clusterRadius]="50">
+  </mgl-geojson-source>
   <mgl-layer
     id="clusters"
     type="circle"
