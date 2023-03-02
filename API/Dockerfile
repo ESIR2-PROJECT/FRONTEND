@@ -11,4 +11,4 @@ FROM openjdk:17 AS prod
 WORKDIR /app
 COPY --from=build /app/target/api-0.0.1-SNAPSHOT.jar app.jar
 
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
