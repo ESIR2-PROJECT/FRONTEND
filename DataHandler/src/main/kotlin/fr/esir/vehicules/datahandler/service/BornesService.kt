@@ -49,7 +49,9 @@ class BornesService(
                     csv.getValue("adresse_station")[i]
             )
             val dateString = csv.getValue("date_mise_en_service")[i]
-            val miseEnService = if (dateString.isEmpty()) Date.valueOf("1970-01-01") else Date.valueOf(dateString)
+            if(dateString.isEmpty())
+                continue;
+            val miseEnService = Date.valueOf(dateString)
             val prises = getPriseTypes(csv, i)
 
             val coordonnees = Coordonnees(
