@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Borne, Coordonnees, Station, Ville } from '../objects/borne';
+import {Borne, BornePoint, Coordonnees, Station, Ville} from '../objects/borne';
 import {ApiHelperService} from "./api-helper.service";
 
 @Injectable({
@@ -8,20 +8,15 @@ import {ApiHelperService} from "./api-helper.service";
 export class DataService {
   constructor(private api: ApiHelperService) { }
 
-   getAllBorne():Promise<Borne[]>{
-    return this.api.get({endpoint:'/bornes'}).then(data => {
-
-      data.bornes.forEach((e: Borne) => {
-        e.miseEnService = new Date(e.miseEnService)
-      })
-
-      return data.bornes
-    });
+   getBorneUntil(date : Date):Promise<BornePoint[]>{
+    return this.api.get({endpoint:'/bornes',queryParams:{date:date}}).then(data => {
+      return data.map((e: number[]) => new BornePoint(e[0], e[1], e[2]))
+    })
   }
 
-   getBorneUntil(date : Date):Promise<Borne[]>{
-    return this.api.get({endpoint:'/bornes',queryParams:{date:date}}).then(data => {
-      return data.bornes
+  getBorneID(id : number):Promise<Borne>{
+    return this.api.get({endpoint:'/bornes/'+id}).then(data => {
+      return data
     })
   }
 }

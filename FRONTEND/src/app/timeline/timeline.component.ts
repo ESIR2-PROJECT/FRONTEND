@@ -28,18 +28,12 @@ export class TimelineComponent implements OnInit {
   change() {
     let date = (new Date(this.value))
     this.date = date.toISOString().split('T')[0]
-    this.print();
     this.changed.emit(date)
   }
   change2(){
     let date = (new Date(this.date))
     this.value = date.getTime()
-    this.print();
     this.changed.emit(date)
-  }
-
-  print(){
-    console.log(this.date)
   }
 
 }

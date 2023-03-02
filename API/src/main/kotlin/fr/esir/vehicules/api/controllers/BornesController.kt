@@ -1,5 +1,5 @@
 package fr.esir.vehicules.api.controllers;
-
+import fr.esir.vehicules.api.objects.Point
 import fr.esir.vehicules.api.objects.ResponseAll
 import fr.esir.vehicules.api.services.BornesService
 import fr.esir.vehicules.dbobjects.bornes.Borne
@@ -16,18 +16,18 @@ class BornesController(
         val bornesService: BornesService
 ) {
     @GetMapping
-    fun getAll(@RequestParam(required = false) date: Date?): ResponseEntity<ResponseAll>{
+    fun getAll(@RequestParam(required = false) date: Date?): ResponseEntity<List<List<Double>>>{
         val bornes = if(date == null)
             bornesService.getAll()
         else
             bornesService.getAfter(date)
 
         return ResponseEntity.ok(
-                ResponseAll(bornes)
+                bornes.map { e -> e.toList() }
         )
     }
-    @GetMapping("/:id")
-    fun getAfter(@Param("id") id: Int): ResponseEntity<Borne>{
+    @GetMapping("/{id}")
+    fun getAfter(@PathVariable("id") id: Int): ResponseEntity<Borne>{
         return ResponseEntity.ok(bornesService.get(id))
     }
 
@@ -37,9 +37,11 @@ class BornesController(
             @RequestParam latitudeBottom: Double,
             @RequestParam longitudeLeft: Double,
             @RequestParam longitudeRight: Double,
-            @RequestParam(required = false) date: Date?): ResponseEntity<List<Borne>>{
-        return ResponseEntity.ok(bornesService.getByZone(
+            @RequestParam(required = false) date: Date?): ResponseEntity<List<List<Double>>>{
+        return ResponseEntity.ok(
+                bornesService.getByZone(
                 latitudeTop, latitudeBottom, longitudeLeft, longitudeRight, date
-        ))
+            ).map{e -> e.toList()}
+        )
     }
 }
