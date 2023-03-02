@@ -10,7 +10,7 @@ export class DataService {
 
    getBorneUntil(date : Date):Promise<BornePoint[]>{
     return this.api.get({endpoint:'/bornes',queryParams:{date:date}}).then(data => {
-      return data.map((e: number[]) => new BornePoint(e[0], e[1], e[2]))
+      return data.map(this.arrayToBornePoint)
     })
   }
 
@@ -18,5 +18,14 @@ export class DataService {
     return this.api.get({endpoint:'/bornes/'+id}).then(data => {
       return data
     })
+  }
+  getBornes(): Promise<BornePoint[]>{
+    return this.api.get({endpoint: '/bornes'}).then(data => {
+      return data.map(this.arrayToBornePoint)
+    })
+  }
+
+  private arrayToBornePoint(array: string[]): BornePoint {
+    return new BornePoint(+array[0], +array[1], +array[2], new Date(array[3]))
   }
 }

@@ -17,7 +17,6 @@ export class MapComponent implements OnInit{
   name:String = "Map";
   borne:BornePoint[]=[];
   loadingMap: boolean = false
-  loadingQuery: boolean = false
   error: string|null = null
 
   mapbox!: Map
@@ -36,7 +35,7 @@ export class MapComponent implements OnInit{
 
   mapInit(e: Map){
     this.mapbox = e
-    this.changeData(this.targetDate)
+    this.getAll()
   }
   ngOnInit(){
     this.getCurrentLocation();
@@ -56,50 +55,45 @@ export class MapComponent implements OnInit{
   centerMapTo(evt: MapMouseEvent) {
     this.center = (evt as any).features[0].geometry.coordinates;
   }
+  async getAll(){
+    this.loadingMap = true
+    this.borne = []
+    await this.dataservice.getBornes().then((bornes: BornePoint[]) => {
+      this.borne = bornes
+      this.changeData(this.targetDate)
+    }).catch((e: Error) => {
+      this.error = e.message
+    })
+    this.loadingMap = false
+  }
 
   async changeData(d: Date) {
     this.targetDate = d
 
-    if (this.loadingQuery)
-      return
+    let bornes = this.borne.filter(b => b.date < this.targetDate)
 
-    this.loadingQuery = true
-    this.loadingMap = true
-    this.borne = []
-    await this.dataservice.getBorneUntil(d).then((bornes: BornePoint[]) => {
-      let features = bornes.map((b, i) => {
-        let feature: GeoJSON.Feature  = {
-          id: i,
-          type: 'Feature',
-          geometry: {
-            type: "Point",
-            coordinates: [b.longitude, b.latitude]
-          },
-          properties: {
-            id: b.id,
-            point: b
-          }
+    let features = bornes.map((b, i) => {
+      let feature: GeoJSON.Feature  = {
+        id: i,
+        type: 'Feature',
+        geometry: {
+          type: "Point",
+          coordinates: [b.longitude, b.latitude]
+        },
+        properties: {
+          id: b.id,
+          point: b
         }
-        return feature
-      })
-      let collection: GeoJSON.FeatureCollection = {
-        type: "FeatureCollection",
-        features: features
       }
-      let source = this.mapbox.getSource("symbols-source") as GeoJSONSource
-      console.log(source)
-      // this.borne = bornes
-      source.setData(collection)
-    }).catch((e: Error) => {
-      this.loadingQuery = false
-      this.error = e.message
+      return feature
     })
-    this.loadingMap = false
-    setTimeout(() => {
-      this.loadingQuery = false
-      if(this.targetDate != d)
-        this.changeData(this.targetDate)
-    }, 1000)
+    let collection: GeoJSON.FeatureCollection = {
+      type: "FeatureCollection",
+      features: features
+    }
+    let source = this.mapbox.getSource("symbols-source") as GeoJSONSource
+    console.log(source)
+    source.setData(collection)
   }
   getCurrentLocation() {
     if (navigator.geolocation) {
