@@ -1,0 +1,48 @@
+version: '3.4'
+services:
+  front:
+    image: fgdou/esir-vehicules-front
+    restart: always
+
+  nginx:
+    image: fgdou/esir-vehicules-nginx
+    ports:
+      - 80:80
+    depends_on:
+      - front
+      - api
+    restart: always
+
+  api:
+    image: fgdou/esir-vehicules-api
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=vehicules
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=esir
+      - POSTGRES_PORT=5432
+    depends_on:
+      - db
+    restart: always
+  datahandler:
+    image: fgdou/esir-vehicules-datahandler
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=vehicules
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=esir
+      - POSTGRES_PORT=5432
+      - DATAHANDLER_UPDATE_ON_STARTUP=false
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: postgres:15.1
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=esir
+      - POSTGRES_DB=vehicules
+    restart: always
