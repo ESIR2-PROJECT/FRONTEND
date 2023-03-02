@@ -1,9 +1,9 @@
 ### STAGE 1: Build ###
 FROM node:19 AS build
+RUN npm install -g @angular/cli
 WORKDIR /usr/src/app
 COPY package.json .
 RUN npm install
-RUN npm install -g @angular/cli
 COPY . .
 RUN npm run build
 ### STAGE 2: Run ###
@@ -23,7 +23,6 @@ EXPOSE 4200
 
 COPY package.json ./
 RUN npm install
-RUN npm install -g @angular/cli
 COPY angular.json tsconfig* ./
 
 CMD [ "npm", "run", "dev" ]
