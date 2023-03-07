@@ -82,7 +82,8 @@ export class MapComponent implements OnInit{
         },
         properties: {
           id: b.id,
-          point: b
+          point: b,
+          date: b.date.toLocaleDateString("fr-FR"),
         }
       }
       return feature
