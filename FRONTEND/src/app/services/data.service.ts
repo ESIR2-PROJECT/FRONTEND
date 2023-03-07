@@ -19,6 +19,12 @@ export class DataService {
       return data
     })
   }
+
+  getBorneNull():Promise<BornePoint[]>{
+    return this.api.get({endpoint:'/bornes/bornenull'}).then(data => {
+      return data.map(this.arrayToBornePoint)
+    })
+  }
   getBornes(): Promise<BornePoint[]>{
     return this.api.get({endpoint: '/bornes'}).then(data => {
       return data.map(this.arrayToBornePoint)

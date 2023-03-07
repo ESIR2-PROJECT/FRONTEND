@@ -31,6 +31,11 @@ class BornesController(
         return ResponseEntity.ok(bornesService.get(id))
     }
 
+    @GetMapping("/bornenull")
+    fun getBorneNull(): ResponseEntity<List<List<String>>>{
+        val bornes=bornesService.getDateNull()
+        return ResponseEntity.ok( bornes.map { e -> e.toList() })
+    }
     @GetMapping("/zone")
     fun getByZone(
             @RequestParam latitudeTop: Double,

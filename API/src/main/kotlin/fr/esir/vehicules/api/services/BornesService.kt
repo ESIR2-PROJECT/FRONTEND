@@ -15,6 +15,11 @@ class BornesService(
     fun getAll(): List<Point> {
         return bornesRepository.getAll()
     }
+
+    fun getDateNull(): List<Point> {
+        return bornesRepository.findByMiseEnServiceIsNull()
+    }
+
     fun get(id: Int): Borne {
         val res = bornesRepository.findById(id)
         if(res.isEmpty)
