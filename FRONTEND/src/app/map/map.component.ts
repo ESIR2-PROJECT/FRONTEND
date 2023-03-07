@@ -36,6 +36,7 @@ export class MapComponent implements OnInit{
   mapInit(e: Map){
     this.mapbox = e
     this.getAll()
+    this.getBorneNull()
   }
   ngOnInit(){
     this.getCurrentLocation();
@@ -67,6 +68,15 @@ export class MapComponent implements OnInit{
     this.loadingMap = false
   }
 
+  async getBorneNull(){
+    
+    await this.dataservice.getBorneNull().then((bornes: BornePoint[]) => {
+      
+      console.log(bornes)
+    }).catch((e: Error) => {
+      this.error = e.message
+    })
+  }
   async changeData(d: Date) {
     this.targetDate = d
 
