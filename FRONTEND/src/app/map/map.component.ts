@@ -94,6 +94,7 @@ export class MapComponent implements OnInit{
     let source = this.mapbox.getSource("symbols-source") as GeoJSONSource
     console.log(source)
     source.setData(collection)
+
   }
   getCurrentLocation() {
     if (navigator.geolocation) {
