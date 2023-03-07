@@ -35,6 +35,10 @@ class BornesService(
         return prises
     }
 
+    fun isEmpty(): Boolean {
+        return bornesRepository.count() == 0L;
+    }
+
     fun getBornes(): List<Borne> {
         val csv = dataService.getCsv(bornesUrl, delimiter)
         val size = csv.values.first().size

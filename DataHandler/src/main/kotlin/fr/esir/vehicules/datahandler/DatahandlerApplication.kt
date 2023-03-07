@@ -20,7 +20,7 @@ class DatahandlerApplication(
 ) {
 
 	@Value("\${update.on.startup}")
-	val updateOnStartup = false
+	val updateOnStartup: Boolean? = false
 
 	val logger = LoggerFactory.getLogger(DatahandlerApplication::class.java);
 
@@ -29,8 +29,8 @@ class DatahandlerApplication(
 		logger.info("Update on startup: $updateOnStartup")
 		prisesService.checkPrises()
 
-		if(updateOnStartup)
-			everyDay()
+		if(bornesService.isEmpty() || updateOnStartup == true )
+			bornesService.updateBornes()
 	}
 
 	@Scheduled(cron = "0 0 1 * * *")
