@@ -1,5 +1,5 @@
 <mgl-map
-  [style]="'mapbox://styles/mapbox/dark-v9'"
+  [style]="'mapbox://styles/mapbox/dark-v11'"
   [zoom]="[9]"
   [ngClass]="{loading: loadingMap}"
   [center]="center"
@@ -60,8 +60,14 @@
     source="symbols-source"
     [filter]="['!', ['has', 'point_count']]"
     [paint]="{
-      'circle-color': '#11b4da',
-      'circle-radius': 4,
+        'circle-color': [
+              'interpolate-lab',
+              ['linear'],
+              ['to-number', ['slice', ['get', 'date'], 6, 10]],
+              1999, ['rgb', 21, 45, 255],
+              2024, ['rgb', 173, 247, 242]
+            ],
+      'circle-radius': 6,
       'circle-stroke-width': 1,
       'circle-stroke-color': '#fff'
     }"
