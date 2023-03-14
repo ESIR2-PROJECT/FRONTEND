@@ -44,7 +44,6 @@ class BornesService(
         val size = csv.values.first().size
         val bornes = ArrayList<Borne>(size)
 
-
         for (i in 0 until size){
 
             val station = Station(
@@ -53,9 +52,15 @@ class BornesService(
                     csv.getValue("adresse_station")[i]
             )
             val dateString = csv.getValue("date_mise_en_service")[i]
-            if(dateString.isEmpty())
-                continue;
-            val miseEnService = Date.valueOf(dateString)
+
+            val date2005 = Date.valueOf("2000-01-02")
+            var miseEnService :Date ?= null
+            if(!dateString.isEmpty() ){
+                miseEnService = Date.valueOf(dateString)
+                 if(miseEnService.before(date2005)){
+                    miseEnService = null
+                }
+            }
             val prises = getPriseTypes(csv, i)
 
             val coordonnees = Coordonnees(

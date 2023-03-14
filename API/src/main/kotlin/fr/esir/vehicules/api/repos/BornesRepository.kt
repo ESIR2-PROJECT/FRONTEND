@@ -11,7 +11,10 @@ interface BornesRepository : CrudRepository<Borne, Int> {
     @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C WHERE B.miseEnService < :date")
     fun findByMiseEnServiceIsBefore(date: Date): List<Point>
 
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C")
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C WHERE B.miseEnService IS NULL")
+    fun findByMiseEnServiceIsNull(): List<Point>
+
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C WHERE B.miseEnService IS NOT NULL")
     fun getAll(): List<Point>
 
     @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) " +

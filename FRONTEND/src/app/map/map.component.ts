@@ -16,13 +16,14 @@ export class MapComponent implements OnInit{
 
   name:String = "Map";
   borne:BornePoint[]=[];
+  borneNull:BornePoint[]=[];
   loadingMap: boolean = false
   error: string|null = null
 
   mapbox!: Map
   @Output() showInfo =new EventEmitter<number>();
 
-  begin: Date = new Date("1999-01-01")
+  begin: Date = new Date("2013-01-01")
   end: Date = new Date()
 
   center: [number, number] | undefined;
@@ -35,6 +36,7 @@ export class MapComponent implements OnInit{
 
   mapInit(e: Map){
     this.mapbox = e
+    this.getBorneNull()
     this.getAll()
   }
   ngOnInit(){
@@ -44,6 +46,17 @@ export class MapComponent implements OnInit{
   giveInfo(e: MapMouseEvent){
     const features = e.target.queryRenderedFeatures(e.point, {
       layers: ['unclustered-point'] // replace with your layer name
+    });
+    if(features.length === 0)
+      return
+    let borne: number = features[0].properties!['id']
+    this.showInfo.emit(borne);
+    this.sideNavService.show(borne);
+  }
+
+  giveInfo2(e: MapMouseEvent){
+    const features = e.target.queryRenderedFeatures(e.point, {
+      layers: ['unclustered-point-null'] // replace with your layer name
     });
     if(features.length === 0)
       return
@@ -67,11 +80,47 @@ export class MapComponent implements OnInit{
     this.loadingMap = false
   }
 
+  async getBorneNull(){
+    
+    await this.dataservice.getBorneNull().then((bornes: BornePoint[]) => {
+      this.borneNull=bornes
+      this.geoDataNull();
+    }).catch((e: Error) => {
+      this.error = e.message
+    })
+  }
+
+  async geoDataNull(){
+    let bornes=this.borneNull;
+    let features = bornes.map((b, i) => {
+      let feature: GeoJSON.Feature  = {
+        id: i,
+        type: 'Feature',
+        geometry: {
+          type: "Point",
+          coordinates: [b.longitude, b.latitude]
+        },
+        properties: {
+          id: b.id,
+          point: b
+        }
+      }
+      return feature
+    })
+    let collection: GeoJSON.FeatureCollection = {
+      type: "FeatureCollection",
+      features: features
+    }
+    let source = this.mapbox.getSource("symbols-source-null") as GeoJSONSource
+    source.setData(collection)
+  }
+
   async changeData(d: Date) {
     this.targetDate = d
 
     let bornes = this.borne.filter(b => b.date < this.targetDate)
-
+    bornes=bornes.concat(this.borneNull)
+    console.log(bornes.length)
     let features = bornes.map((b, i) => {
       let feature: GeoJSON.Feature  = {
         id: i,

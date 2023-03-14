@@ -29,7 +29,7 @@ class Borne (
         @Column
         val horaires: String,
         @Column
-        val miseEnService: Date,
+        val miseEnService: Date ?,
         @OneToOne(cascade = [CascadeType.ALL])
         @JoinColumn
         val coordonnees: Coordonnees,
