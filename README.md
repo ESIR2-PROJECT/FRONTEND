@@ -12,6 +12,7 @@ A web interface showing the evolution of electric vehicules charging network.
 - LE LAN Quentin
 - MORVAN Arthur
 - PICAUD Tom
+- SAUVAT Bastien
 - TSAGAAN Tergel
 
 ---
