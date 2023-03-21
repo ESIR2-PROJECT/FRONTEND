@@ -1,8 +1,8 @@
 package fr.esir.vehicules.datahandler.repositories
 
-import fr.esir.vehicules.dbobjects.bornes.Borne
+import fr.esir.vehicules.dbobjects.voitures.Voitures
 import org.springframework.data.repository.CrudRepository
 
-interface VoituresRepository : CrudRepository<Borne, Int> {
+interface VoituresRepository : CrudRepository<Voitures, Int> {
 
 }
