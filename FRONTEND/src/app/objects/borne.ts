@@ -15,7 +15,7 @@ export class BornePoint{
     public id: number,
     public latitude: number,
     public longitude: number,
-    public date: Date
+    public date: Date | null
   ) {
   }
 }

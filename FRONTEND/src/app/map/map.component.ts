@@ -28,7 +28,7 @@ export class MapComponent implements OnInit{
 
   center: [number, number] | undefined;
 
-  targetDate: Date = this.begin
+  targetDate: Date = this.end
 
   constructor(public sideNavService: SideNavService,
               private dataservice : DataService) {
@@ -36,7 +36,6 @@ export class MapComponent implements OnInit{
 
   mapInit(e: Map){
     this.mapbox = e
-    this.getBorneNull()
     this.getAll()
   }
   ngOnInit(){
@@ -71,23 +70,15 @@ export class MapComponent implements OnInit{
   async getAll(){
     this.loadingMap = true
     this.borne = []
-    await this.dataservice.getBornes().then((bornes: BornePoint[]) => {
-      this.borne = bornes
-      this.changeData(this.targetDate)
+    await this.dataservice.getBornes().then(async (bornes: BornePoint[]) => {
+      this.borne = bornes.filter(b => b.date != null)
+      this.borneNull = bornes.filter(b => b.date == null)
+      await this.changeData(this.targetDate)
+      await this.geoDataNull()
     }).catch((e: Error) => {
       this.error = e.message
     })
     this.loadingMap = false
-  }
-
-  async getBorneNull(){
-    
-    await this.dataservice.getBorneNull().then((bornes: BornePoint[]) => {
-      this.borneNull=bornes
-      this.geoDataNull();
-    }).catch((e: Error) => {
-      this.error = e.message
-    })
   }
 
   async geoDataNull(){
@@ -118,9 +109,7 @@ export class MapComponent implements OnInit{
   async changeData(d: Date) {
     this.targetDate = d
 
-    let bornes = this.borne.filter(b => b.date < this.targetDate)
-    bornes=bornes.concat(this.borneNull)
-    console.log(bornes.length)
+    let bornes = this.borne.filter(b => b.date != null && b.date < this.targetDate)
     let features = bornes.map((b, i) => {
       let feature: GeoJSON.Feature  = {
         id: i,
@@ -132,7 +121,7 @@ export class MapComponent implements OnInit{
         properties: {
           id: b.id,
           point: b,
-          date: b.date.toLocaleDateString("fr-FR"),
+          date: b.date?.toLocaleDateString("fr-FR"),
         }
       }
       return feature
@@ -142,7 +131,6 @@ export class MapComponent implements OnInit{
       features: features
     }
     let source = this.mapbox.getSource("symbols-source") as GeoJSONSource
-    console.log(source)
     source.setData(collection)
 
   }
