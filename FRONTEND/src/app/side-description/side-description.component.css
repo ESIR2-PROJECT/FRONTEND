@@ -23,6 +23,19 @@
   font-size: small;
   margin-bottom: 0.5em;
 }
+.borne-info .location p {
+  margin: 0;
+  padding: 0;
+}
+
+.google-direction {
+  color: black;
+}
+.location-address {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
 
 .borne-info .name {
   margin-left: 2px;
