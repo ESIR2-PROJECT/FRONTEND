@@ -28,7 +28,7 @@ class DatahandlerApplication(
 	fun init(){
 		prisesService.checkPrises()
 		voituresService.updateVoitures()
-
+		//TODO : remove ligne du dessus
 		if(updateOnStartup)
 			everyDay()
 	}

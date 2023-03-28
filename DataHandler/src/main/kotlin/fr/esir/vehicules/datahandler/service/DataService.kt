@@ -39,7 +39,7 @@ class DataService {
 
             return string.toString()
         } catch(e: IOException){
-            throw Exception("Error dowloading $url")
+            throw Exception("Error downloading $url : ${e.message}")
         }
     }
     fun getCsv(url: String, delimiter: Char): Map<String, List<String>> {

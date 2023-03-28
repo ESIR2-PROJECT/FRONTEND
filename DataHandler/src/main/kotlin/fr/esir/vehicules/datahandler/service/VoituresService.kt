@@ -17,9 +17,9 @@ class VoituresService(
 )
 {
 
-    @Value("\${url.voitures}")
+    @Value("\${url.vehicules}")
     val voituresUrl: String = ""
-    val delimiter = ','
+    val delimiter = ';'
 
     val logger = LoggerFactory.getLogger(VoituresService::class.java);
 
