@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.sql.Date
+import java.util.Calendar
 
 @Service
 class BornesService(
@@ -53,11 +54,18 @@ class BornesService(
             )
             val dateString = csv.getValue("date_mise_en_service")[i]
 
-            val date2005 = Date.valueOf("2013-01-01")
+            val dateConstrainLeft = Date.valueOf("2013-01-01")
+
+            val calendar = Calendar.getInstance()
+
+            calendar.time = java.util.Date()
+            calendar.add(Calendar.YEAR, 2)
+            val dateConstrainRight = calendar.time
+
             var miseEnService :Date ?= null
             if(!dateString.isEmpty() ){
                 miseEnService = Date.valueOf(dateString)
-                 if(miseEnService.before(date2005)){
+                 if(miseEnService.before(dateConstrainLeft) || miseEnService.after(dateConstrainRight)){
                     miseEnService = null
                 }
             }
