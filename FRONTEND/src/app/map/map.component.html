@@ -41,7 +41,7 @@
     }"
   >
   </mgl-layer>
- 
+
   <mgl-layer
     id="cluster-count"
     type="symbol"
@@ -60,13 +60,7 @@
     source="symbols-source"
     [filter]="['!', ['has', 'point_count']]"
     [paint]="{
-        'circle-color': [
-              'interpolate-lab',
-              ['linear'],
-              ['to-number', ['slice', ['get', 'date'], 6, 10]],
-              1999, ['rgb', 21, 45, 255],
-              2024, ['rgb', 173, 247, 242]
-            ],
+      'circle-color': ['get', 'color'],
       'circle-radius': 6,
       'circle-stroke-width': 1,
       'circle-stroke-color': '#fff'
@@ -74,20 +68,5 @@
     (layerClick)="giveInfo($event)"
   >
   </mgl-layer>
-  <mgl-geojson-source id="symbols-source-null" [cluster]="true" [clusterMaxZoom]="8" [clusterRadius]="50" ></mgl-geojson-source>
-  <mgl-layer
-  id="unclustered-point-null"
-  type="circle"
-  source="symbols-source-null"
-  [filter]="['!', ['has', 'point_count']]"
-  [paint]="{
-    'circle-color': '#FF0000',
-    'circle-radius': 4,
-    'circle-stroke-width': 1,
-    'circle-stroke-color': '#fff'
-  }"
-  (layerClick)="giveInfo2($event)"
->
-</mgl-layer>
 </mgl-map>
 <app-timeline  [begin]="begin" [end]="end" (changed)="changeData($event)"></app-timeline>
