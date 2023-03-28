@@ -53,17 +53,6 @@ export class MapComponent implements OnInit{
     this.sideNavService.show(borne);
   }
 
-  giveInfo2(e: MapMouseEvent){
-    const features = e.target.queryRenderedFeatures(e.point, {
-      layers: ['unclustered-point-null'] // replace with your layer name
-    });
-    if(features.length === 0)
-      return
-    let borne: number = features[0].properties!['id']
-    this.showInfo.emit(borne);
-    this.sideNavService.show(borne);
-  }
-
   centerMapTo(evt: MapMouseEvent) {
     this.center = (evt as any).features[0].geometry.coordinates;
   }
@@ -71,45 +60,18 @@ export class MapComponent implements OnInit{
     this.loadingMap = true
     this.borne = []
     await this.dataservice.getBornes().then(async (bornes: BornePoint[]) => {
-      this.borne = bornes.filter(b => b.date != null)
-      this.borneNull = bornes.filter(b => b.date == null)
+      this.borne = bornes
       await this.changeData(this.targetDate)
-      await this.geoDataNull()
     }).catch((e: Error) => {
       this.error = e.message
     })
     this.loadingMap = false
   }
 
-  async geoDataNull(){
-    let bornes=this.borneNull;
-    let features = bornes.map((b, i) => {
-      let feature: GeoJSON.Feature  = {
-        id: i,
-        type: 'Feature',
-        geometry: {
-          type: "Point",
-          coordinates: [b.longitude, b.latitude]
-        },
-        properties: {
-          id: b.id,
-          point: b
-        }
-      }
-      return feature
-    })
-    let collection: GeoJSON.FeatureCollection = {
-      type: "FeatureCollection",
-      features: features
-    }
-    let source = this.mapbox.getSource("symbols-source-null") as GeoJSONSource
-    source.setData(collection)
-  }
-
   async changeData(d: Date) {
     this.targetDate = d
 
-    let bornes = this.borne.filter(b => b.date != null && b.date < this.targetDate)
+    let bornes = this.borne.filter(b => b.date == null || b.date < this.targetDate)
     let features = bornes.map((b, i) => {
       let feature: GeoJSON.Feature  = {
         id: i,
@@ -122,6 +84,7 @@ export class MapComponent implements OnInit{
           id: b.id,
           point: b,
           date: b.date?.toLocaleDateString("fr-FR"),
+          color: (b.date == null) ? "#ff0000" : "#00aeff",
         }
       }
       return feature
