@@ -5,7 +5,6 @@ services:
     build:
       context: FRONTEND
       target: prod
-    restart: always
 
   dbobjects:
     build: DBobjects
