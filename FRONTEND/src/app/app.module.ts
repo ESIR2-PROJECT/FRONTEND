@@ -18,6 +18,8 @@ import {NgxMapboxGLModule} from "ngx-mapbox-gl";
 import {HttpClientModule} from "@angular/common/http";
 import { TimelineComponent } from './timeline/timeline.component';
 import {FormsModule} from "@angular/forms";
+import { ChartsComponent } from './charts/charts.component';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,7 @@ import {FormsModule} from "@angular/forms";
     SideDescriptionComponent,
     HomeComponent,
     TimelineComponent,
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import {FormsModule} from "@angular/forms";
     MatButtonModule,
     MatCardModule,
     MatDividerModule,
+    NgChartsModule,
     MatIconModule,
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1IjoidGhvbWVnYSIsImEiOiJjbGJjZmVtcGgwM3FlM29xdTdqdTNzcGVoIn0.5H6TAGMFFAu-9maHaoW-BA',
