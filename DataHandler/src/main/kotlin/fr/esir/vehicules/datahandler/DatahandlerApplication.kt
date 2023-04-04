@@ -3,6 +3,7 @@ package fr.esir.vehicules.datahandler
 import fr.esir.vehicules.datahandler.service.BornesService
 import fr.esir.vehicules.datahandler.service.PrisesService
 import jakarta.annotation.PostConstruct
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
@@ -22,15 +23,21 @@ class DatahandlerApplication(
 ) {
 
 	@Value("\${update.on.startup}")
-	val updateOnStartup = false
+	val updateOnStartup: Boolean? = false
+
+	val logger = LoggerFactory.getLogger(DatahandlerApplication::class.java);
 
 	@PostConstruct
 	fun init(){
+		logger.info("Update on startup: $updateOnStartup")
 		prisesService.checkPrises()
 		voituresService.updateVoitures()
 		//TODO : remove ligne du dessus
-		if(updateOnStartup)
+		if(updateOnStartup == true)
 			everyDay()
+
+		if(bornesService.isEmpty() || updateOnStartup == false )
+			bornesService.updateBornes()
 	}
 
 	@Scheduled(cron = "0 0 1 * * *")

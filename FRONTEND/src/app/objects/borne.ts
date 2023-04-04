@@ -5,7 +5,7 @@ export class Borne{
         public station: Station,
         public priseType: Prise[],
         public horaires: string,
-        public miseEnService: Date,
+        public miseEnService: Date | null,
         public coordonnees: Coordonnees,
         public ville: Ville,
     ){}
@@ -15,7 +15,7 @@ export class BornePoint{
     public id: number,
     public latitude: number,
     public longitude: number,
-    public date: Date
+    public date: Date | null
   ) {
   }
 }

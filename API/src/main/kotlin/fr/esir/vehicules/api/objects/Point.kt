@@ -7,9 +7,13 @@ class Point (
         val id: Int,
         val longitude: Double,
         val latitude: Double,
-        val date: Date
+        val date: Date ?=null
 ){
     fun toList(): List<String> {
-        return listOf(id.toString(), latitude.toString(), longitude.toString(), date.toString())
+        var text="null"
+        if(date!=null){
+            text=date.toString()
+        }
+        return listOf(id.toString(), latitude.toString(), longitude.toString(), text)
     }
 }

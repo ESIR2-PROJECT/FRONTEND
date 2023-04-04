@@ -5,7 +5,6 @@ services:
     build:
       context: FRONTEND
       target: prod
-    restart: always
 
   dbobjects:
     build: DBobjects
@@ -38,7 +37,7 @@ services:
     image: fgdou/esir-vehicules-datahandler
     build:
       target: prod
-      context: API
+      context: DataHandler
     environment:
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_DB=${POSTGRES_DB}

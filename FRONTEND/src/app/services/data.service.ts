@@ -26,6 +26,7 @@ export class DataService {
   }
 
   private arrayToBornePoint(array: string[]): BornePoint {
-    return new BornePoint(+array[0], +array[1], +array[2], new Date(array[3]))
+    let date = (array[3] == "null") ? null : new Date(array[3])
+    return new BornePoint(+array[0], +array[1], +array[2], date)
   }
 }

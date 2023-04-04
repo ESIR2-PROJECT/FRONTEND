@@ -21,8 +21,7 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit(): void {
     this.date = (this.begin).toISOString().split('T')[0]
-    this.value = this.begin.getTime()
-    this.changed.emit(new Date(this.date))
+    this.value = this.end.getTime()
   }
 
   change() {

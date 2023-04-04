@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.sql.Date
+import java.util.Calendar
 
 @Service
 class BornesService(
@@ -35,11 +36,14 @@ class BornesService(
         return prises
     }
 
+    fun isEmpty(): Boolean {
+        return bornesRepository.count() == 0L;
+    }
+
     fun getBornes(): List<Borne> {
         val csv = dataService.getCsv(bornesUrl, delimiter)
         val size = csv.values.first().size
         val bornes = ArrayList<Borne>(size)
-
 
         for (i in 0 until size){
 
@@ -49,9 +53,22 @@ class BornesService(
                     csv.getValue("adresse_station")[i]
             )
             val dateString = csv.getValue("date_mise_en_service")[i]
-            if(dateString.isEmpty())
-                continue;
-            val miseEnService = Date.valueOf(dateString)
+
+            val dateConstrainLeft = Date.valueOf("2013-01-01")
+
+            val calendar = Calendar.getInstance()
+
+            calendar.time = java.util.Date()
+            calendar.add(Calendar.YEAR, 2)
+            val dateConstrainRight = calendar.time
+
+            var miseEnService :Date ?= null
+            if(!dateString.isEmpty() ){
+                miseEnService = Date.valueOf(dateString)
+                 if(miseEnService.before(dateConstrainLeft) || miseEnService.after(dateConstrainRight)){
+                    miseEnService = null
+                }
+            }
             val prises = getPriseTypes(csv, i)
 
             val coordonnees = Coordonnees(

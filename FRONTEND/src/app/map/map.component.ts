@@ -16,18 +16,19 @@ export class MapComponent implements OnInit{
 
   name:String = "Map";
   borne:BornePoint[]=[];
+  borneNull:BornePoint[]=[];
   loadingMap: boolean = false
   error: string|null = null
 
   mapbox!: Map
   @Output() showInfo =new EventEmitter<number>();
 
-  begin: Date = new Date("1999-01-01")
+  begin: Date = new Date("2013-01-01")
   end: Date = new Date()
 
   center: [number, number] | undefined;
 
-  targetDate: Date = this.begin
+  targetDate: Date = this.end
 
   constructor(public sideNavService: SideNavService,
               private dataservice : DataService) {
@@ -58,9 +59,9 @@ export class MapComponent implements OnInit{
   async getAll(){
     this.loadingMap = true
     this.borne = []
-    await this.dataservice.getBornes().then((bornes: BornePoint[]) => {
+    await this.dataservice.getBornes().then(async (bornes: BornePoint[]) => {
       this.borne = bornes
-      this.changeData(this.targetDate)
+      await this.changeData(this.targetDate)
     }).catch((e: Error) => {
       this.error = e.message
     })
@@ -70,8 +71,7 @@ export class MapComponent implements OnInit{
   async changeData(d: Date) {
     this.targetDate = d
 
-    let bornes = this.borne.filter(b => b.date < this.targetDate)
-
+    let bornes = this.borne.filter(b => b.date == null || b.date < this.targetDate)
     let features = bornes.map((b, i) => {
       let feature: GeoJSON.Feature  = {
         id: i,
@@ -82,7 +82,9 @@ export class MapComponent implements OnInit{
         },
         properties: {
           id: b.id,
-          point: b
+          point: b,
+          date: b.date?.toLocaleDateString("fr-FR"),
+          color: (b.date == null) ? "#ff0000" : "#00aeff",
         }
       }
       return feature
@@ -92,7 +94,6 @@ export class MapComponent implements OnInit{
       features: features
     }
     let source = this.mapbox.getSource("symbols-source") as GeoJSONSource
-    console.log(source)
     source.setData(collection)
 
   }

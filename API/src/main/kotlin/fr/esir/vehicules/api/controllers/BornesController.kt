@@ -30,7 +30,6 @@ class BornesController(
     fun getAfter(@PathVariable("id") id: Int): ResponseEntity<Borne>{
         return ResponseEntity.ok(bornesService.get(id))
     }
-
     @GetMapping("/zone")
     fun getByZone(
             @RequestParam latitudeTop: Double,
