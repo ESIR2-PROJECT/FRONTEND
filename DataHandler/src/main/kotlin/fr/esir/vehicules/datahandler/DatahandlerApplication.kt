@@ -31,8 +31,7 @@ class DatahandlerApplication(
 	fun init(){
 		logger.info("Update on startup: $updateOnStartup")
 		prisesService.checkPrises()
-		voituresService.updateVoitures()
-		//TODO : remove ligne du dessus
+
 		if(updateOnStartup == true)
 			everyDay()
 
