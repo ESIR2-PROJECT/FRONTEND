@@ -18,6 +18,12 @@ import {NgxMapboxGLModule} from "ngx-mapbox-gl";
 import {HttpClientModule} from "@angular/common/http";
 import { TimelineComponent } from './timeline/timeline.component';
 import {FormsModule} from "@angular/forms";
+import { MapSettingsComponent } from './map-settings/map-settings.component';
+import { SettingsDialogComponent } from './map-settings/settings-dialog/settings-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +32,8 @@ import {FormsModule} from "@angular/forms";
     SideDescriptionComponent,
     HomeComponent,
     TimelineComponent,
+    MapSettingsComponent,
+    SettingsDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +50,11 @@ import {FormsModule} from "@angular/forms";
       accessToken: 'pk.eyJ1IjoidGhvbWVnYSIsImEiOiJjbGJjZmVtcGgwM3FlM29xdTdqdTNzcGVoIn0.5H6TAGMFFAu-9maHaoW-BA',
     }),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

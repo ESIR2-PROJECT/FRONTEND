@@ -12,7 +12,7 @@
     </mgl-marker>
   </div>
   -->
-  <mgl-geojson-source id="symbols-source" [cluster]="true" [clusterMaxZoom]="8" [clusterRadius]="50">
+  <mgl-geojson-source id="symbols-source" [cluster]="clusterEnabled" [clusterMaxZoom]="8" [clusterRadius]="50">
   </mgl-geojson-source>
   <mgl-layer
     id="clusters"
@@ -70,3 +70,4 @@
   </mgl-layer>
 </mgl-map>
 <app-timeline  [begin]="begin" [end]="end" (changed)="changeData($event)"></app-timeline>
+<app-map-settings></app-map-settings>
