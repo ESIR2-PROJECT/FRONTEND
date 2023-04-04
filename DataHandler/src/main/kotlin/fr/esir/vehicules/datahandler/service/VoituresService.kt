@@ -70,4 +70,8 @@ class VoituresService(
         logger.info("Voitures done.")
     }
 
+    fun isEmpty(): Boolean {
+        return voituresRepository.count() == 0L
+    }
+
 }

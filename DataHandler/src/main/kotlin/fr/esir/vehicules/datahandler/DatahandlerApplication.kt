@@ -34,9 +34,14 @@ class DatahandlerApplication(
 
 		if(updateOnStartup == true)
 			everyDay()
+		else{
+			if(bornesService.isEmpty())
+				bornesService.updateBornes()
+			if(voituresService.isEmpty())
+				voituresService.updateVoitures()
+		}
 
-		if(bornesService.isEmpty() || updateOnStartup == false )
-			bornesService.updateBornes()
+
 	}
 
 	@Scheduled(cron = "0 0 1 * * *")
