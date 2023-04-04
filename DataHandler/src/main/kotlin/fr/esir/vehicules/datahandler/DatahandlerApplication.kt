@@ -11,12 +11,15 @@ import org.springframework.boot.runApplication
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
 
+import fr.esir.vehicules.datahandler.service.VoituresService
+
 @SpringBootApplication
 @EnableScheduling
-@EntityScan(basePackages = ["fr.esir.vehicules.dbobjects.bornes"])
+@EntityScan(basePackages = ["fr.esir.vehicules.dbobjects"])
 class DatahandlerApplication(
 		val prisesService: PrisesService,
 		val bornesService: BornesService,
+		val voituresService: VoituresService
 ) {
 
 	@Value("\${update.on.startup}")
@@ -29,13 +32,22 @@ class DatahandlerApplication(
 		logger.info("Update on startup: $updateOnStartup")
 		prisesService.checkPrises()
 
-		if(bornesService.isEmpty() || updateOnStartup == true )
-			bornesService.updateBornes()
+		if(updateOnStartup == true)
+			everyDay()
+		else{
+			if(bornesService.isEmpty())
+				bornesService.updateBornes()
+			if(voituresService.isEmpty())
+				voituresService.updateVoitures()
+		}
+
+
 	}
 
 	@Scheduled(cron = "0 0 1 * * *")
 	fun everyDay(){
 		bornesService.updateBornes()
+		voituresService.updateVoitures()
 	}
 }
 

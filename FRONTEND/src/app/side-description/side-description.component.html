@@ -8,11 +8,15 @@
     </div>
     <div class="borne-info mx-3">
       <div class="title">
-        <p class="location"> {{borne.station.address}} </p>
         <h2 class="name"> {{borne.station.nom}} </h2>
-        <p class="date-mise-service"> {{borne.miseEnService}} </p>
       </div>
       <div>
+        <p class="date-mise-service"> {{borne.miseEnService || "No date"}} </p>
+        <div class="location">
+          <p> {{borne.station.address}} </p>
+          <p class="location-address"> {{borne.ville.commune}} {{borne.ville.code_postale}} <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{borne.coordonnees.latitude}},{{borne.coordonnees.longitude}}"><mat-icon class="google-direction" fontIcon="directions"></mat-icon></a> </p>
+        </div>
+        <hr>
         <p><strong>Types de prise :</strong></p>
         <ul>
           <li *ngFor="let b of borne.priseType">{{b.name}}</li>
