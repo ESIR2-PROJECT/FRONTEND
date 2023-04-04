@@ -14,7 +14,7 @@ class Voitures (
     val id: Int?=null,
 
     @Column
-    val codgeo: Int,
+    val codgeo: String,
 
     @Column
     val libgeo: String,
