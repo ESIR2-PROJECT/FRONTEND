@@ -29,9 +29,8 @@ class VoituresService(
         val voitures = ArrayList<Voitures>(size)
 
         for (i in 0 until size){
-            val codePostal = csv.getValue("codgeo")[i].toInt()
             val nomCommune = csv.getValue("libgeo")[i]
-            val epciNumero = csv.getValue("epci")[i].toInt()
+            val epciNumero = csv.getValue("epci")[i].toIntOrNull() ?: 0
             val epciNom = csv.getValue("libepci")[i]
             val nbV_elec = csv.getValue("nb_vp_rechargeables_el")[i].toIntOrNull() ?: 0
             val nbV_gaz = csv.getValue("nb_vp_rechargeables_gaz")[i].toIntOrNull() ?: 0
