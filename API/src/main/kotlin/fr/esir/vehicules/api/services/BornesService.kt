@@ -12,7 +12,9 @@ import java.util.Date
 class BornesService(
      val bornesRepository: BornesRepository
 ) {
-    fun getAll(): List<Point> {
+    fun getAll(postalCode: Boolean): List<Point> {
+        if(postalCode)
+            return bornesRepository.getAllPostalCode()
         return bornesRepository.getAll()
     }
 
