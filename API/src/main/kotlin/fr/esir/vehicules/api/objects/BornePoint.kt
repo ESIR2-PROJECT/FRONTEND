@@ -1,9 +1,8 @@
 package fr.esir.vehicules.api.objects
 
-import fr.esir.vehicules.dbobjects.bornes.Borne
 import java.sql.Date
 
-class Point {
+class BornePoint {
     val id: Int
     val longitude: Double
     val latitude: Double

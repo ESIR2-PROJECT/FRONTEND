@@ -1,6 +1,6 @@
 package fr.esir.vehicules.api.repos
 
-import fr.esir.vehicules.api.objects.Point
+import fr.esir.vehicules.api.objects.BornePoint
 import fr.esir.vehicules.dbobjects.bornes.Borne
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
@@ -8,16 +8,16 @@ import org.springframework.data.repository.query.Param
 import java.util.Date
 
 interface BornesRepository : CrudRepository<Borne, Int> {
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C WHERE B.miseEnService < :date")
-    fun findByMiseEnServiceIsBefore(date: Date): List<Point>
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C WHERE B.miseEnService < :date")
+    fun findByMiseEnServiceIsBefore(date: Date): List<BornePoint>
 
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C")
-    fun getAll(): List<Point>
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C")
+    fun getAll(): List<BornePoint>
 
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService, V.code_postale) FROM Borne as B JOIN B.coordonnees as C JOIN B.ville as V")
-    fun getAllPostalCode(): List<Point>
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService, V.code_postale) FROM Borne as B JOIN B.coordonnees as C JOIN B.ville as V")
+    fun getAllPostalCode(): List<BornePoint>
 
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) " +
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService) " +
             "FROM Borne as B " +
             "JOIN B.coordonnees as C " +
             "WHERE C.latitude BETWEEN :latitudeTop AND :latitudeBottom " +
@@ -28,8 +28,8 @@ interface BornesRepository : CrudRepository<Borne, Int> {
             @Param("latitudeBottom") latitudeBottom: Double,
             @Param("longitudeLeft") longitudeLeft: Double,
             @Param("longitudeRight") longitudeRight: Double,
-            ): List<Point>
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude) " +
+            ): List<BornePoint>
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService) " +
             "FROM Borne as B " +
             "JOIN B.coordonnees as C " +
             "WHERE C.latitude BETWEEN :latitudeTop AND :latitudeBottom " +
@@ -41,5 +41,5 @@ interface BornesRepository : CrudRepository<Borne, Int> {
             @Param("longitudeLeft") longitudeLeft: Double,
             @Param("longitudeRight") longitudeRight: Double,
             @Param("date") date: Date
-    ): List<Point>
+    ): List<BornePoint>
 }

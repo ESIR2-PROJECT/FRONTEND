@@ -1,9 +1,6 @@
 package fr.esir.vehicules.api.controllers;
-import fr.esir.vehicules.api.objects.Point
-import fr.esir.vehicules.api.objects.ResponseAll
 import fr.esir.vehicules.api.services.BornesService
 import fr.esir.vehicules.dbobjects.bornes.Borne
-import org.springframework.data.repository.query.Param
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
