@@ -8,16 +8,16 @@ import org.springframework.data.repository.query.Param
 import java.util.Date
 
 interface BornesRepository : CrudRepository<Borne, Int> {
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C WHERE B.miseEnService < :date")
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C WHERE B.miseEnService < :date")
     fun findByMiseEnServiceIsBefore(date: Date): List<BornePoint>
 
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C")
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService) FROM Borne as B JOIN B.coordonnees as C")
     fun getAll(): List<BornePoint>
 
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService, V.code_postale) FROM Borne as B JOIN B.coordonnees as C JOIN B.ville as V")
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService, V.code_postale) FROM Borne as B JOIN B.coordonnees as C JOIN B.ville as V")
     fun getAllPostalCode(): List<BornePoint>
 
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.Point(B.id, C.longitude, C.latitude, B.miseEnService) " +
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService) " +
             "FROM Borne as B " +
             "JOIN B.coordonnees as C " +
             "WHERE C.latitude BETWEEN :latitudeTop AND :latitudeBottom " +
