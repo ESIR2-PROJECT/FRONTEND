@@ -29,7 +29,7 @@ interface BornesRepository : CrudRepository<Borne, Int> {
             @Param("longitudeLeft") longitudeLeft: Double,
             @Param("longitudeRight") longitudeRight: Double,
             ): List<BornePoint>
-    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude) " +
+    @Query(value = "SELECT new fr.esir.vehicules.api.objects.BornePoint(B.id, C.longitude, C.latitude, B.miseEnService) " +
             "FROM Borne as B " +
             "JOIN B.coordonnees as C " +
             "WHERE C.latitude BETWEEN :latitudeTop AND :latitudeBottom " +
