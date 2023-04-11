@@ -9,4 +9,7 @@ class VoitureAllPoint(
     val gaz: Int,
     val date: Date
 ) {
+    fun toList(): List<String> {
+        return listOf(codepostal, total.toString(), electric.toString(), gaz.toString(), date.toString())
+    }
 }
