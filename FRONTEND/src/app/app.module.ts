@@ -20,6 +20,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import {FormsModule} from "@angular/forms";
 import { ChartsComponent } from './charts/charts.component';
 import { NgChartsModule } from 'ng2-charts';
+import { PresentationComponent } from './presentation/presentation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { NgChartsModule } from 'ng2-charts';
     HomeComponent,
     TimelineComponent,
     ChartsComponent,
+    PresentationComponent,
   ],
   imports: [
     BrowserModule,
