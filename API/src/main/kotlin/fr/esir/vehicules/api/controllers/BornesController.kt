@@ -16,9 +16,13 @@ class BornesController(
         val bornesService: BornesService
 ) {
     @GetMapping
-    fun getAll(@RequestParam(required = false) date: Date?): ResponseEntity<List<List<String>>>{
-        val bornes = if(date == null)
-            bornesService.getAll()
+    fun getAll(@RequestParam(required = false) date: Date?, @RequestParam(required = false) postalcode: Boolean): ResponseEntity<List<List<String>>>{
+        val bornes = if(date == null) {
+            if(postalcode)
+                bornesService.getAll(true)
+            else
+                bornesService.getAll(false)
+        }
         else
             bornesService.getAfter(date)
 
