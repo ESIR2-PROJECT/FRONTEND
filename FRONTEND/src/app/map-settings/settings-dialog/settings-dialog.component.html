@@ -1,7 +1,12 @@
 <h1 mat-dialog-title>Paramètre</h1>
 <div mat-dialog-content>
   <div class="toggle">
-    <mat-slide-toggle [checked]="clusteringEnabled" (change)="toggleClustering($event)">Clustering</mat-slide-toggle>
+    <mat-slide-toggle
+      [checked]="clusteringEnabled"
+      (change)="toggleClustering($event)"
+      matTooltip="Activer le regroupement des bornes sur la carte">
+      Clustering
+    </mat-slide-toggle>
   </div>
 </div>
 <div mat-dialog-actions class="justify-content-end">

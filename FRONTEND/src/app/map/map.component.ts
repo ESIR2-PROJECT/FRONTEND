@@ -47,9 +47,9 @@ export class MapComponent implements OnInit, OnDestroy{
   ngOnInit(){
     this.clusterSubscription = this.settingService.clustering.subscribe((value: boolean) => {
       this.clusterEnabled = value;
-      // targetDate minus 1 day
-      this.targetDate = new Date(this.targetDate.getTime() - 86400000);
-      this.changeData(this.targetDate);
+      setTimeout(() => {
+        this.changeData(this.targetDate);
+      }, 100);
     });
     this.getCurrentLocation();
   }
@@ -84,7 +84,7 @@ export class MapComponent implements OnInit, OnDestroy{
     this.loadingMap = false
   }
 
-  async changeData(d: Date) {
+  changeData(d: Date) {
     this.targetDate = d
 
     let bornes = this.borne.filter(b => b.date == null || b.date < this.targetDate)
@@ -111,7 +111,7 @@ export class MapComponent implements OnInit, OnDestroy{
     }
     let source = this.mapbox.getSource("symbols-source") as GeoJSONSource
     source.setData(collection)
-
+    console.log("changeData")
   }
   getCurrentLocation() {
     if (navigator.geolocation) {
