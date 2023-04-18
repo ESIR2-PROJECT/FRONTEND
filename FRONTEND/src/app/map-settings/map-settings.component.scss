@@ -1,0 +1,22 @@
+.settings {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  padding-right: 1em;
+  padding-top: 1em;
+  transform: scale(1.5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+button.mat-icon-button {
+  background-color: #66bb6a; /* Changer la couleur d'arrière-plan du bouton ici */
+  border: none;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+button.mat-icon-button:hover {
+  background-color: #43a047; /* Changer la couleur d'arrière-plan au survol du bouton ici */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15);
+}

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {SideNavService} from "../@core/side-nav/side-nav.service";
 
 import {DataService} from "../services/data.service";
@@ -6,13 +6,15 @@ import {Borne, BornePoint, Coordonnees} from "../objects/borne";
 import {EventData, MapboxEvent, MapMouseEvent, MapSourceDataEvent, Point, Map, GeoJSONSource} from "mapbox-gl";
 import {HttpErrorResponse} from "@angular/common/http";
 import * as GeoJSON from 'geojson';
+import {MapSettingsService} from "../map-settings/map-settings.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit{
+export class MapComponent implements OnInit, OnDestroy{
 
   name:String = "Map";
   borne:BornePoint[]=[];
@@ -30,8 +32,12 @@ export class MapComponent implements OnInit{
 
   targetDate: Date = this.end
 
+  clusterSubscription!: Subscription;
+  clusterEnabled: boolean = true;
+
   constructor(public sideNavService: SideNavService,
-              private dataservice : DataService) {
+              private dataservice : DataService,
+              private settingService: MapSettingsService) {
   }
 
   mapInit(e: Map){
@@ -39,7 +45,17 @@ export class MapComponent implements OnInit{
     this.getAll()
   }
   ngOnInit(){
+    this.clusterSubscription = this.settingService.clustering.subscribe((value: boolean) => {
+      this.clusterEnabled = value;
+      setTimeout(() => {
+        this.changeData(this.targetDate);
+      }, 100);
+    });
     this.getCurrentLocation();
+  }
+
+  ngOnDestroy() {
+    this.clusterSubscription.unsubscribe();
   }
 
   giveInfo(e: MapMouseEvent){
@@ -68,7 +84,7 @@ export class MapComponent implements OnInit{
     this.loadingMap = false
   }
 
-  async changeData(d: Date) {
+  changeData(d: Date) {
     this.targetDate = d
 
     let bornes = this.borne.filter(b => b.date == null || b.date < this.targetDate)
@@ -95,7 +111,7 @@ export class MapComponent implements OnInit{
     }
     let source = this.mapbox.getSource("symbols-source") as GeoJSONSource
     source.setData(collection)
-
+    console.log("changeData")
   }
   getCurrentLocation() {
     if (navigator.geolocation) {

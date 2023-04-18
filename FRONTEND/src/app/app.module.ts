@@ -18,6 +18,13 @@ import {NgxMapboxGLModule} from "ngx-mapbox-gl";
 import {HttpClientModule} from "@angular/common/http";
 import { TimelineComponent } from './timeline/timeline.component';
 import {FormsModule} from "@angular/forms";
+import { MapSettingsComponent } from './map-settings/map-settings.component';
+import { SettingsDialogComponent } from './map-settings/settings-dialog/settings-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatTooltipModule} from "@angular/material/tooltip";
 import { ChartsComponent } from './charts/charts.component';
 import { NgChartsModule } from 'ng2-charts';
 import { PresentationComponent } from './presentation/presentation.component';
@@ -31,6 +38,8 @@ import { PresentationComponent } from './presentation/presentation.component';
     TimelineComponent,
     ChartsComponent,
     PresentationComponent,
+    MapSettingsComponent,
+    SettingsDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +57,12 @@ import { PresentationComponent } from './presentation/presentation.component';
       accessToken: 'pk.eyJ1IjoidGhvbWVnYSIsImEiOiJjbGJjZmVtcGgwM3FlM29xdTdqdTNzcGVoIn0.5H6TAGMFFAu-9maHaoW-BA',
     }),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
