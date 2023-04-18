@@ -23,4 +23,9 @@ class VoituresController(
     fun getNumbersByVille(): ResponseEntity<List<List<String>>> {
         return ResponseEntity.ok(voituresService.getAllVille().map { it.toList() })
     }
+
+    @GetMapping("/departments")
+    fun getDepartments(): ResponseEntity<List<List<String>>> {
+        return ResponseEntity.ok(voituresService.getDepartments().map{it.toList()})
+    }
 }
