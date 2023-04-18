@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-@EntityScan(basePackages = ["fr.esir.vehicules.dbobjects.bornes"])
+@EntityScan(basePackages = ["fr.esir.vehicules.dbobjects"])
 class ApiApplication() {
 
 }

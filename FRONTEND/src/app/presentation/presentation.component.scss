@@ -1,0 +1,22 @@
+.presentation{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px 60px 40px 60px;
+}
+
+.presentation_titre{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.presentation_texte{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px 60px 40px 60px;
+}

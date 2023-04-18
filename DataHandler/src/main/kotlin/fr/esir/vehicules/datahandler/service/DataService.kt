@@ -39,7 +39,7 @@ class DataService {
 
             return string.toString()
         } catch(e: IOException){
-            throw Exception("Error dowloading $url")
+            throw Exception("Error downloading $url : ${e.message}")
         }
     }
     fun getCsv(url: String, delimiter: Char): Map<String, List<String>> {
@@ -62,8 +62,7 @@ class DataService {
         for(i in headers)
             lists.add(ArrayList(data.size))
 
-        for(i in 1 until data.size){
-            val line = data[i]
+        for(line in data.subList(1, data.size)){
             for(j in headers.indices)
                 lists[j].add(line[j])
         }
@@ -72,6 +71,8 @@ class DataService {
         for(i in headers.indices){
             map[headers[i]] = lists[i]
         }
+
+        logger.debug("File formatted.")
 
         return map
     }

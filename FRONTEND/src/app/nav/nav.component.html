@@ -1,4 +1,5 @@
-<mat-toolbar style="background-image:linear-gradient(45deg, #DFEDD8, #21b621);
+
+<!-- <mat-toolbar style="background-image:linear-gradient(45deg, #DFEDD8, #21b621);
 width:100%" >
   <span 
   style="text-align: center;margin-left: auto; margin-right: auto; color: #CEF0D4; 
@@ -7,4 +8,23 @@ width:100%" >
   >
   BornToMap
 </span>
-</mat-toolbar>
+</mat-toolbar> -->
+
+<nav class="naviguation navbar navbar-expand-lg"> 
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/presentation">
+      <img
+        src="./assets/gas-station.png"
+        class="me-2"
+        height="50"
+        alt=""
+        loading="lazy"
+      />
+      <small>BornToMap</small>
+    </a>
+  </div>
+  <a [ngClass]="{'active': pageActive === 'home'}" class="nav-link" href="/presentation">Home</a>
+  <a [ngClass]="{'active': pageActive === 'map'}"  class="nav-link" href="/map">Map</a>
+  <a [ngClass]="{'active': pageActive === 'charts'}"  class="nav-link" href="/charts">Charts</a>
+</nav>
+
