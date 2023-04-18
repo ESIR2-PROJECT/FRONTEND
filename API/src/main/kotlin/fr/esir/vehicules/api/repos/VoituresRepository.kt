@@ -1,6 +1,7 @@
 package fr.esir.vehicules.api.repos
 
 import fr.esir.vehicules.api.objects.VoitureAllPoint
+import fr.esir.vehicules.api.objects.VoitureDepartementPoint
 import fr.esir.vehicules.api.objects.VoiturePoint
 import fr.esir.vehicules.dbobjects.voitures.Voitures
 import org.springframework.data.jpa.repository.Query
@@ -14,4 +15,12 @@ interface VoituresRepository: CrudRepository<Voitures, Int> {
     fun getAllVille(): List<VoiturePoint>
     @Query("SELECT new fr.esir.vehicules.api.objects.VoitureAllPoint(V.codgeo, V.nbVp, V.nbVpRechargeablesEl, V.nbVpRechargeablesGaz, V.dateArrete) FROM Voitures V")
     fun getAll(): List<VoitureAllPoint>
+
+    @Query("SELECT new fr.esir.vehicules.api.objects.VoitureDepartementPoint(" +
+            "SUBSTRING(V.codgeo, 1, 2), " +
+            "cast(SUM(V.nbVp) as int), " +
+            "cast(SUM(V.nbVpRechargeablesEl) as int), " +
+            "cast(SUM(V.nbVpRechargeablesGaz) as int)) " +
+            "FROM Voitures V GROUP BY SUBSTRING(V.codgeo, 1, 2)")
+    fun getAllDepartements(): List<VoitureDepartementPoint>
 }
