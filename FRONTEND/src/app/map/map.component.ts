@@ -62,7 +62,7 @@ export class MapComponent implements OnInit, OnDestroy{
   }
 
   async computeCityColor() {
-    const colorExpression = [
+    const colorExpression: any = [
       'match',
       ['get', 'code']
     ];
@@ -74,15 +74,17 @@ export class MapComponent implements OnInit, OnDestroy{
       const gaz = +deptData[3];
       const essence = total - elec - gaz;
       const ratio = essence / total;
+      console.log(ratio);
       const colorRange = [
         'interpolate',
         ['linear'],
         ratio, // la propriété "valeur" doit être définie pour chaque géométrie
         0, 'green',
-        0.7, 'purple',
+        0.98, 'orange',
         1, 'red'
       ];
-      colorExpression.push([dept, colorRange]);
+      colorExpression.push(dept);
+      colorExpression.push(colorRange);
     }
     colorExpression.push('white');
     return colorExpression;
@@ -109,9 +111,6 @@ export class MapComponent implements OnInit, OnDestroy{
     this.sideNavService.show(borne);
   }
 
-  centerMapTo(evt: MapMouseEvent) {
-    this.center = (evt as any).features[0].geometry.coordinates;
-  }
   async getAll(){
     this.loadingMap = true
     this.borne = []
@@ -167,5 +166,3 @@ export class MapComponent implements OnInit, OnDestroy{
 
 
 }
-
-
