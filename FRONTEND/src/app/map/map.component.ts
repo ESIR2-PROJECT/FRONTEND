@@ -8,6 +8,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import * as GeoJSON from 'geojson';
 import {MapSettingsService} from "../map-settings/map-settings.service";
 import {Subscription} from "rxjs";
+import {VoitureService} from "../services/voiture.service";
 
 @Component({
   selector: 'app-map',
@@ -37,12 +38,18 @@ export class MapComponent implements OnInit, OnDestroy{
 
   constructor(public sideNavService: SideNavService,
               private dataservice : DataService,
+              private voitureService: VoitureService,
               private settingService: MapSettingsService) {
   }
 
   mapInit(e: Map){
     this.mapbox = e
     this.getAll()
+    this.mapbox.addSource("city-source", {
+      type: "geojson",
+      // data: "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/communes-version-simplifiee.geojson",
+      data: "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-version-simplifiee.geojson"
+    });
   }
   ngOnInit(){
     this.clusterSubscription = this.settingService.clustering.subscribe((value: boolean) => {
@@ -52,6 +59,39 @@ export class MapComponent implements OnInit, OnDestroy{
       }, 100);
     });
     this.getCurrentLocation();
+  }
+
+  async computeCityColor() {
+    const colorExpression = [
+      'match',
+      ['get', 'code']
+    ];
+    const deptDatas = await this.voitureService.getAllDepartments();
+    for (const deptData of deptDatas) {
+      const dept = deptData[0];
+      const total = +deptData[1];
+      const elec = +deptData[2];
+      const gaz = +deptData[3];
+      const essence = total - elec - gaz;
+      const ratio = essence / total;
+      const colorRange = [
+        'interpolate',
+        ['linear'],
+        ratio, // la propriété "valeur" doit être définie pour chaque géométrie
+        0, 'green',
+        0.7, 'purple',
+        1, 'red'
+      ];
+      colorExpression.push([dept, colorRange]);
+    }
+    colorExpression.push('white');
+    return colorExpression;
+  }
+
+  async addCitySource(): Promise<void> {
+    const colorExpression = await this.computeCityColor();
+    this.mapbox.setPaintProperty('ville-layer', 'fill-color', colorExpression);
+
   }
 
   ngOnDestroy() {
@@ -78,6 +118,7 @@ export class MapComponent implements OnInit, OnDestroy{
     await this.dataservice.getBornes().then(async (bornes: BornePoint[]) => {
       this.borne = bornes
       await this.changeData(this.targetDate)
+      this.addCitySource()
     }).catch((e: Error) => {
       this.error = e.message
     })
@@ -122,6 +163,8 @@ export class MapComponent implements OnInit, OnDestroy{
       });
     }
   }
+
+
 
 }
 
