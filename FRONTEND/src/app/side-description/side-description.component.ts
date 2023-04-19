@@ -28,8 +28,8 @@ export class SideDescriptionComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.sideNavService.setDrawer(this.sideNav);
-    this.event = this.sideNavService.getEvent()
+    this.sideNavService.setDescDrawer(this.sideNav);
+    this.event = this.sideNavService.getDescEvent()
 
     this.event.subscribe((e: number)=>{
       //this.borne = e

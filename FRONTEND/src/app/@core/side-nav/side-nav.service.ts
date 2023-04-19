@@ -8,33 +8,36 @@ import {DataService} from "../../services/data.service";
 })
 export class SideNavService {
 
-  drawer!: MatDrawer;
+  descDrawer!: MatDrawer;
+  vehicleDrawer!: MatDrawer;
   borne?: number
-  changed: EventEmitter<number> = new EventEmitter<number>()
+  descChanged: EventEmitter<number> = new EventEmitter<number>()
+  deptChanged: EventEmitter<string> = new EventEmitter<string>()
   constructor(
     private dataService: DataService
   ) { }
 
-  setDrawer(drawer: MatDrawer) {
-    this.drawer = drawer;
+  setDescDrawer(drawer: MatDrawer) {
+    this.descDrawer = drawer;
+  }
+  setVehicleDrawer(drawer: MatDrawer) {
+    this.vehicleDrawer = drawer;
   }
 
-  toggle() {
-    this.drawer.toggle();
-  }
-
-  show(borne: number) {
-    this.drawer.open()
+  showDesc(borne: number) {
+    this.descDrawer.open()
     this.borne = borne
-    this.changed.emit(this.borne)
+    this.descChanged.emit(this.borne)
   }
-  close(){
-    this.drawer.close()
+  showVehicle(dept: string) {
+    this.vehicleDrawer.open()
+    this.deptChanged.emit(dept)
   }
-  getBorne(): number|undefined {
-    return this.borne;
+
+  getDescEvent(): EventEmitter<number> {
+    return this.descChanged;
   }
-  getEvent(): EventEmitter<number> {
-    return this.changed
+  getDeptEvent(): EventEmitter<string> {
+    return this.deptChanged;
   }
 }

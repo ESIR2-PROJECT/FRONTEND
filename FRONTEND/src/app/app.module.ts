@@ -28,19 +28,22 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import { ChartsComponent } from './charts/charts.component';
 import { NgChartsModule } from 'ng2-charts';
 import { PresentationComponent } from './presentation/presentation.component';
+import { DeptVehicleComponent } from './side-description/dept-vehicle/dept-vehicle.component';
 @NgModule({
-  declarations: [
-    AppComponent,
-    MapComponent,
-    NavComponent,
-    SideDescriptionComponent,
-    HomeComponent,
-    TimelineComponent,
-    ChartsComponent,
-    PresentationComponent,
-    MapSettingsComponent,
-    SettingsDialogComponent,
-  ],
+    declarations: [
+        AppComponent,
+        MapComponent,
+        NavComponent,
+        SideDescriptionComponent,
+        HomeComponent,
+        TimelineComponent,
+        ChartsComponent,
+        PresentationComponent,
+        MapSettingsComponent,
+        SettingsDialogComponent,
+        DeptVehicleComponent,
+        DeptVehicleComponent,
+    ],
   imports: [
     BrowserModule,
     HttpClientModule,
