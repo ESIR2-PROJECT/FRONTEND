@@ -69,12 +69,8 @@ export class MapComponent implements OnInit, OnDestroy{
     ];
     const deptDatas = await this.voitureService.getAllDepartments();
     for (const deptData of deptDatas) {
-      const dept = deptData[0];
-      const total = +deptData[1];
-      const elec = +deptData[2];
-      const gaz = +deptData[3];
-      const essence = total - elec - gaz;
-      const ratio = essence / total;
+      const essence = deptData.total - deptData.elec - deptData.gaz;
+      const ratio = essence / deptData.total;
       console.log(ratio);
       const colorRange = [
         'interpolate',
@@ -84,7 +80,7 @@ export class MapComponent implements OnInit, OnDestroy{
         0.98, 'orange',
         1, 'red'
       ];
-      colorExpression.push(dept);
+      colorExpression.push(deptData.departement);
       colorExpression.push(colorRange);
     }
     colorExpression.push('white');
