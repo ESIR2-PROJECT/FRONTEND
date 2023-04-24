@@ -8,7 +8,7 @@ import {PresentationComponent} from "./presentation/presentation.component";
 const routes: Routes = [
   { path: '',
     pathMatch: 'full',
-    redirectTo: '/map',
+    redirectTo: '/presentation',
   },
   { path: 'map', component: HomeComponent },
   { path: 'charts', component: ChartsComponent },
