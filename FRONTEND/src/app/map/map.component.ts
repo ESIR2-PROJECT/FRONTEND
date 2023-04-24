@@ -8,7 +8,6 @@ import {HttpErrorResponse} from "@angular/common/http";
 import * as GeoJSON from 'geojson';
 import {MapSettingsService} from "../map-settings/map-settings.service";
 import {min, Subscription} from "rxjs";
-import {VoitureService} from "../services/voiture.service";
 
 @Component({
   selector: 'app-map',
@@ -39,7 +38,6 @@ export class MapComponent implements OnInit, OnDestroy{
 
   constructor(public sideNavService: SideNavService,
               private dataservice : DataService,
-              private voitureService: VoitureService,
               private settingService: MapSettingsService) {
   }
 
@@ -67,7 +65,7 @@ export class MapComponent implements OnInit, OnDestroy{
       'match',
       ['get', 'code']
     ];
-    const deptDatas = await this.voitureService.getAllDepartments();
+    const deptDatas = await this.dataservice.getAllDepartments();
     let minElec = Math.min(...deptDatas.map(d => d.elec+d.gaz))
     let maxElec = Math.max(...deptDatas.map(d => d.elec+d.gaz))
     for (const deptData of deptDatas) {
