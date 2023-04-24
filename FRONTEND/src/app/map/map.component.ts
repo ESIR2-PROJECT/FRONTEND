@@ -7,7 +7,7 @@ import {EventData, MapboxEvent, MapMouseEvent, MapSourceDataEvent, Point, Map, G
 import {HttpErrorResponse} from "@angular/common/http";
 import * as GeoJSON from 'geojson';
 import {MapSettingsService} from "../map-settings/map-settings.service";
-import {Subscription} from "rxjs";
+import {min, Subscription} from "rxjs";
 import {VoitureService} from "../services/voiture.service";
 
 @Component({
@@ -68,9 +68,11 @@ export class MapComponent implements OnInit, OnDestroy{
       ['get', 'code']
     ];
     const deptDatas = await this.voitureService.getAllDepartments();
+    let minElec = Math.min(...deptDatas.map(d => d.elec+d.gaz))
+    let maxElec = Math.max(...deptDatas.map(d => d.elec+d.gaz))
     for (const deptData of deptDatas) {
-      const essence = deptData.total - deptData.elec - deptData.gaz;
-      const ratio = essence / deptData.total;
+      const elec = deptData.elec + deptData.gaz;
+      const ratio = 1 - (elec-minElec) / (maxElec-minElec);
       console.log(ratio);
       const colorRange = [
         'interpolate',
