@@ -3,38 +3,50 @@ import {MatDrawer} from "@angular/material/sidenav";
 import {Borne, BornePoint, Coordonnees} from "../../objects/borne";
 import {DataService} from "../../services/data.service";
 
+export interface IVille {
+  dept: string
+  postalCode: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class SideNavService {
 
-  drawer!: MatDrawer;
+  descDrawer!: MatDrawer;
+  vehicleDrawer!: MatDrawer;
   borne?: number
-  changed: EventEmitter<number> = new EventEmitter<number>()
+  descChanged: EventEmitter<number> = new EventEmitter<number>()
+  deptChanged: EventEmitter<IVille> = new EventEmitter<IVille>()
   constructor(
     private dataService: DataService
   ) { }
 
-  setDrawer(drawer: MatDrawer) {
-    this.drawer = drawer;
+  setDescDrawer(drawer: MatDrawer) {
+    this.descDrawer = drawer;
+  }
+  setVehicleDrawer(drawer: MatDrawer) {
+    this.vehicleDrawer = drawer;
   }
 
-  toggle() {
-    this.drawer.toggle();
-  }
-
-  show(borne: number) {
-    this.drawer.open()
+  showDesc(borne: number) {
+    this.vehicleDrawer.close();
+    this.descDrawer.open()
     this.borne = borne
-    this.changed.emit(this.borne)
+    this.descChanged.emit(this.borne)
   }
-  close(){
-    this.drawer.close()
+
+  showVehicle(ville: IVille) {
+    this.descDrawer.close();
+    this.vehicleDrawer.open()
+    this.deptChanged.emit(ville)
   }
-  getBorne(): number|undefined {
-    return this.borne;
+
+  getDescEvent(): EventEmitter<number> {
+    return this.descChanged;
   }
-  getEvent(): EventEmitter<number> {
-    return this.changed
+  getDeptEvent(): EventEmitter<IVille> {
+    return this.deptChanged;
   }
 }

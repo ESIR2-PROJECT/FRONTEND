@@ -7,7 +7,7 @@ import {EventData, MapboxEvent, MapMouseEvent, MapSourceDataEvent, Point, Map, G
 import {HttpErrorResponse} from "@angular/common/http";
 import * as GeoJSON from 'geojson';
 import {MapSettingsService} from "../map-settings/map-settings.service";
-import {Subscription} from "rxjs";
+import {min, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-map',
@@ -43,6 +43,11 @@ export class MapComponent implements OnInit, OnDestroy{
   mapInit(e: Map){
     this.mapbox = e
     this.getAll()
+    this.mapbox.addSource("city-source", {
+      type: "geojson",
+      // data: "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/communes-version-simplifiee.geojson",
+      data: "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-version-simplifiee.geojson"
+    });
   }
   ngOnInit(){
     this.clusterSubscription = this.settingService.clustering.subscribe((value: boolean) => {
@@ -52,6 +57,39 @@ export class MapComponent implements OnInit, OnDestroy{
       }, 100);
     });
     this.getCurrentLocation();
+  }
+
+  async computeCityColor() {
+    const colorExpression: any = [
+      'match',
+      ['get', 'code']
+    ];
+    const deptDatas = await this.dataservice.getAllDepartments();
+    let minElec = Math.min(...deptDatas.map(d => d.elec+d.gaz))
+    let maxElec = Math.max(...deptDatas.map(d => d.elec+d.gaz))
+    for (const deptData of deptDatas) {
+      const elec = deptData.elec + deptData.gaz;
+      const ratio = 1 - (elec-minElec) / (maxElec-minElec);
+      console.log(ratio);
+      const colorRange = [
+        'interpolate',
+        ['linear'],
+        ratio, // la propriété "valeur" doit être définie pour chaque géométrie
+        0, 'green',
+        0.98, 'orange',
+        1, 'red'
+      ];
+      colorExpression.push(deptData.departement);
+      colorExpression.push(colorRange);
+    }
+    colorExpression.push('white');
+    return colorExpression;
+  }
+
+  async addCitySource(): Promise<void> {
+    const colorExpression = await this.computeCityColor();
+    this.mapbox.setPaintProperty('ville-layer', 'fill-color', colorExpression);
+
   }
 
   ngOnDestroy() {
@@ -66,18 +104,16 @@ export class MapComponent implements OnInit, OnDestroy{
       return
     let borne: number = features[0].properties!['id']
     this.showInfo.emit(borne);
-    this.sideNavService.show(borne);
+    this.sideNavService.showDesc(borne);
   }
 
-  centerMapTo(evt: MapMouseEvent) {
-    this.center = (evt as any).features[0].geometry.coordinates;
-  }
   async getAll(){
     this.loadingMap = true
     this.borne = []
     await this.dataservice.getBornes().then(async (bornes: BornePoint[]) => {
       this.borne = bornes
       await this.changeData(this.targetDate)
+      this.addCitySource()
     }).catch((e: Error) => {
       this.error = e.message
     })
@@ -123,6 +159,17 @@ export class MapComponent implements OnInit, OnDestroy{
     }
   }
 
+
+  giveDeptInfo(e: MapMouseEvent) {
+    const features = e.target.queryRenderedFeatures(e.point, {
+      layers: ['ville-layer']
+    });
+    if(features.length === 0)
+      return
+    const dept = features[0].properties!['nom'];
+    const postalCode = features[0].properties!['code'];
+    this.sideNavService.showVehicle({
+      dept, postalCode
+    });
+  }
 }
-
-
