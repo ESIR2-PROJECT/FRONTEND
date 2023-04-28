@@ -24,7 +24,6 @@ export class MapComponent implements OnInit, OnDestroy{
 
   mapbox!: Map
   @Output() showInfo =new EventEmitter<number>();
-  @Output() showDeptInfo =new EventEmitter<number>();
 
   begin: Date = new Date("2013-01-01")
   end: Date = new Date()
@@ -168,7 +167,9 @@ export class MapComponent implements OnInit, OnDestroy{
     if(features.length === 0)
       return
     const dept = features[0].properties!['nom'];
-    this.showDeptInfo.emit(dept);
-    this.sideNavService.showVehicle(dept);
+    const postalCode = features[0].properties!['code'];
+    this.sideNavService.showVehicle({
+      dept, postalCode
+    });
   }
 }

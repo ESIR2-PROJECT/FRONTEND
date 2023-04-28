@@ -7,6 +7,8 @@ import {VoiturePoint} from "../objects/voitures";
   providedIn: 'root'
 })
 export class DataService {
+
+  private voiturePointsCache: VoiturePoint[] | null = null;
   constructor(private api: ApiHelperService) { }
 
    getBorneUntil(date : Date):Promise<BornePoint[]>{
@@ -26,10 +28,14 @@ export class DataService {
     })
   }
   getAllDepartments(): Promise<VoiturePoint[]> {
+    if (this.voiturePointsCache) {
+      return Promise.resolve(this.voiturePointsCache);
+    }
     return this.api.get({endpoint: '/voitures/departments'}).then(data => {
-      return data.map((array: string[]) => {
+      this.voiturePointsCache =  data.map((array: string[]) => {
         return new VoiturePoint(array[0], +array[1], +array[2], +array[3])
       })
+      return this.voiturePointsCache!;
     })
   }
 

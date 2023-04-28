@@ -1,7 +1,8 @@
 import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {MatDrawer} from "@angular/material/sidenav";
-import {SideNavService} from "../../@core/side-nav/side-nav.service";
+import {IVille, SideNavService} from "../../@core/side-nav/side-nav.service";
 import {Borne} from "../../objects/borne";
+import {DataService} from "../../services/data.service";
 
 @Component({
   selector: 'app-dept-vehicle',
@@ -10,16 +11,23 @@ import {Borne} from "../../objects/borne";
 })
 export class DeptVehicleComponent implements OnInit {
   @ViewChild("drawer", {static: true}) sideNav!: MatDrawer;
-  event!: EventEmitter<string>
-
-  constructor(public sideNavService: SideNavService) { }
+  event!: EventEmitter<IVille>
+  ville?: IVille
+  elec?: number;
+  gaz?: number;
+  total?: number;
+  constructor(public sideNavService: SideNavService, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.sideNavService.setVehicleDrawer(this.sideNav);
     this.event = this.sideNavService.getDeptEvent()
-    this.event.subscribe((e: number)=>{
-      console.log(e)
-
+    this.event.subscribe(async (ville: IVille) => {
+      const voiturePoints = await this.dataService.getAllDepartments();
+      const voiturePoint = voiturePoints.find((voiturePoint) => voiturePoint.departement === ville.postalCode);
+      this.ville = ville;
+      this.elec = voiturePoint?.elec;
+      this.gaz = voiturePoint?.gaz;
+      this.total = voiturePoint?.total;
     })
   }
 

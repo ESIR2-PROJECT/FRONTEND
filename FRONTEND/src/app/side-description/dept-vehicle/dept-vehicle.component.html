@@ -1,3 +1,16 @@
 <mat-drawer #drawer class="sidenav" mode="side">
-  <p> CouCou </p>
+  <div class="d-flex m-2">
+    <hr class="mt-4 w-100"/>
+    <button mat-icon-button (click)="drawer.close()">
+      <mat-icon color="primary">cancel_outline</mat-icon>
+    </button>
+  </div>
+  <div class="ms-2">
+    <h2>{{ville?.dept}}</h2>
+    <hr class="mt-4 w-100"/>
+    <h3>Voitures életriques: {{elec}}</h3>
+    <h3>Voitures gaz: {{gaz}}</h3>
+    <h3>Voitures essences: {{(total ?? 0) - (elec ?? 0) - (gaz ?? 0)}}</h3>
+    <h3><strong>Total de voitures: {{total}}</strong></h3>
+  </div>
 </mat-drawer>
