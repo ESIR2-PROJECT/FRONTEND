@@ -17,6 +17,9 @@ A web interface showing the evolution of electric vehicules charging network.
 
 ---
 
+# Try it !
+https://projet.fgdou.ovh/
+
 # Launch
 
 ## Requirements
